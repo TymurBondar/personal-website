@@ -24,7 +24,7 @@ export default function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content shadow bg-base-100 rounded-box border-2 border-yellow-500 w-auto"
+            className="menu menu-sm dropdown-content shadow bg-base-100 rounded-box border-2 border-yellow-500 w-28"
           >
             <li>
               <a>About Me</a>
