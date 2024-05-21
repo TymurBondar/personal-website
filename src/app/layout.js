@@ -12,10 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="h-full">
-      <body className="border-2 border-red-500 h-full overflow-hidden">
+      <body className="h-full">
         {/* Layout UI */}
         <Navbar />
-        <main className="border-2 h-screen border-white">{children}</main>
+        <main className="h-screen">{children}</main>
       </body>
     </html>
   )
