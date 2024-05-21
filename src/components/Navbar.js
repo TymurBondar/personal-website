@@ -2,13 +2,13 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-100 border-2 border-green-500">
+    <div className="navbar bg-base-300">
       <div className="navbar-start">
         <Link href="/" className="btn btn-ghost text-2xl">Tymur Bondar</Link>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost sm:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -26,10 +26,10 @@ export default function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content shadow bg-base-100 rounded-box border-2 border-yellow-500 w-28"
+            className="menu menu-sm dropdown-content mt-3 sm:mt-0 z-[1] shadow bg-base-200 rounded-box p-0"
           >
-            <li>
-              <Link href="/about">About Me</Link>
+            <li className="">
+              <Link href="/about" className="whitespace-nowrap">About Me</Link>
             </li>
             <li>
               <Link href="/portfolio">Projects</Link>
@@ -39,7 +39,7 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="hidden lg:flex">
+        <div className="hidden sm:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
               <Link href="/about">About Me</Link>
