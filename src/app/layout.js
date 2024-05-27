@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       <body className="h-full">
         {/* Layout UI */}
         <Navbar />
-        <main className="h-screen">{children}</main>
+        <main className="h-screen bg-base-100">{children}</main>
       </body>
     </html>
   )
