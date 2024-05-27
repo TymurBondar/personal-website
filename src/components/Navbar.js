@@ -4,7 +4,9 @@ export default function Navbar() {
   return (
     <div className="navbar bg-base-300">
       <div className="navbar-start">
-        <Link href="/" className="btn btn-ghost text-2xl">Tymur Bondar</Link>
+        <Link href="/" className="btn btn-ghost text-4xl">
+          Tymur Bondar
+        </Link>
       </div>
       <div className="navbar-end">
         <div className="dropdown dropdown-end">
@@ -28,8 +30,10 @@ export default function Navbar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 sm:mt-0 z-[1] shadow bg-base-200 rounded-box p-0"
           >
-            <li className="">
-              <Link href="/about" className="whitespace-nowrap">About Me</Link>
+            <li>
+              <Link href="/about" className="whitespace-nowrap">
+                About Me
+              </Link>
             </li>
             <li>
               <Link href="/portfolio">Projects</Link>
@@ -40,7 +44,7 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="hidden sm:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 text-lg lg:text-xl">
             <li>
               <Link href="/about">About Me</Link>
             </li>
