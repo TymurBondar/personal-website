@@ -44,11 +44,6 @@ export default function Navbar() {
                 Projects
               </Link>
             </li>
-            <li>
-              <Link href="/contact" className="text-lg">
-                Contact
-              </Link>
-            </li>
           </ul>
         </div>
         <div className="hidden sm:flex">
@@ -58,9 +53,6 @@ export default function Navbar() {
             </li>
             <li>
               <Link href="/portfolio">Projects</Link>
-            </li>
-            <li>
-              <Link href="/contact">Contact</Link>
             </li>
           </ul>
         </div>
