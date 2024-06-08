@@ -14,14 +14,13 @@ export default function Home() {
           <h1 className="text-5xl font-bold pt-6 sm:text-center lg:text-left lg:pt-0">
             My name is Tymur
           </h1>
-          <p className="py-6">
+          <p className="pt-6">
             New York <b>BASED</b>. I've always been crazy about technology. I
             work with <b>Web</b> and <b>Mobile</b>, and I'm super excited about the
             potential of <b>AI</b>. I genuinely believe that advancements in software
             can make a real difference in people's lives. Join me as I shape the
             future of tech.
           </p>
-          <button className="btn btn-primary">Contact Me!</button>
         </div>
       </div>
     </div>
