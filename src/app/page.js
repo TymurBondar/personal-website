@@ -21,7 +21,7 @@ export default function Home() {
             can make a real difference in people's lives. Join me as I shape the
             future of tech.
           </p>
-          <button className="btn btn-primary">Get Started</button>
+          <button className="btn btn-primary">Contact Me!</button>
         </div>
       </div>
     </div>
