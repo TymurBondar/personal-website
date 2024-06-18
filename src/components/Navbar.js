@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="navbar bg-base-300">
+    <div className="navbar bg-base-300 px-4">
       <div className="navbar-start">
         <Link href="/" className="btn btn-ghost sm:text-4xl text-3xl">
           Tymur Bondar
