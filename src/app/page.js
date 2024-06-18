@@ -3,10 +3,12 @@ import HeroPic from "../../public/HeroPic.jpg";
 
 export default function Home() {
   return (
-    <div className="hero min-h-screen">
+    <div className="hero">
       <div className="hero-content flex-col lg:flex-row-reverse pt-7 lg:py-0">
         <Image
           src={HeroPic}
+          priority={true}
+          placeholder="blur"
           alt="Picture of Tymur Bondar"
           className="rounded-lg shadow-2xl w-[275px] h-auto sm:w-[335px]"
         />
