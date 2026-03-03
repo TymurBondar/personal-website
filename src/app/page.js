@@ -3,8 +3,8 @@ import HeroPic from "../../public/HeroPic.jpg";
 
 export default function Home() {
   return (
-    <div className="hero">
-      <div className="hero-content flex-col lg:flex-row-reverse pt-7 lg:py-0">
+    <div className="flex items-center justify-center">
+      <div className="flex flex-col lg:flex-row-reverse items-center gap-8 pt-7 lg:py-0 px-4">
         <Image
           src={HeroPic}
           priority={true}

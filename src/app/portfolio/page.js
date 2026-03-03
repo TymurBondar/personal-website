@@ -1,4 +1,3 @@
-// `app/dashboard/page.js` is the UI for the `/dashboard` URL
 import Link from "next/link";
 import fretlylogo from "../../../public/fretlylogo.jpg";
 import Image from "next/image";
@@ -6,7 +5,7 @@ import Image from "next/image";
 export default function Page() {
   return (
     <div className="flex w-full justify-center">
-      <div className="card w-80 bg-base-100 shadow-xl">
+      <div className="w-80 bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <figure>
           <Image
             src={fretlylogo}
@@ -15,11 +14,17 @@ export default function Page() {
             alt="Fretly"
           />
         </figure>
-        <div className="card-body">
-          <h2 className="card-title">Fretly!</h2>
+        <div className="p-4">
+          <h2 className="text-xl font-bold">Fretly!</h2>
           <p>A guitar companion mobile app written in flutter</p>
-          <div className="card-actions justify-end">
-            <button className="btn btn-primary"><Link href="https://github.com/TymurBondar/Fretly" target="_blank">Github Repo</Link></button>
+          <div className="flex justify-end mt-2">
+            <Link
+              href="https://github.com/TymurBondar/Fretly"
+              target="_blank"
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Github Repo
+            </Link>
           </div>
         </div>
       </div>

@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body className="flex flex-col min-h-screen text-white">
         {/* Layout UI */}
         <Navbar />
-        <main className="bg-base-100 flex-grow content-center">{children}</main>
+        <main className="bg-gray-900 flex-grow content-center">{children}</main>
         <Footer/>
       </body>
     </html>
