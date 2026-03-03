@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Design & Content
-status: in_progress
-last_updated: "2026-03-03T18:40:40Z"
+status: in-progress
+last_updated: "2026-03-03T19:18:00Z"
 progress:
   total_phases: 3
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 6
-  completed_plans: 1
+  completed_plans: 2
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** A clean, polished site that accurately represents who Tymur is as a software engineer
-**Current focus:** v2.0 Design & Content — Phase 4: Design System
+**Current focus:** v2.0 Design & Content — Phase 5: Navigation + Hero
 
 ## Current Position
 
-Phase: 4 of 6 (Design System)
-Plan: 1 of 1 in current phase (COMPLETE)
-Status: Phase 4 complete — ready for Phase 5
-Last activity: 2026-03-03 — Plan 04-01 complete: solarpunk @theme tokens + font wiring + all component migrations
+Phase: 5 of 6 (Navigation + Hero)
+Plan: 1 of 2 in current phase (COMPLETE)
+Status: Plan 05-01 complete — ready for Plan 05-02
+Last activity: 2026-03-03 — Plan 05-01 complete: multi-page navbar with NavLink RSC boundary, mobile menu, sticky blur, stub pages
 
-Progress: [██░░░░░░░░] 17%
+Progress: [████░░░░░░] 33%
 
 ## Performance Metrics
 
@@ -40,6 +40,7 @@ Progress: [██░░░░░░░░] 17%
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 04-design-system | 04-01 | 2min | 2 | 5 |
+| 05-navigation-hero | 05-01 | 1min | 2 | 6 |
 
 ## Accumulated Context
 
@@ -61,6 +62,12 @@ Recent decisions affecting v2.0:
 - SVGs use fill=currentColor with text-cream-100 on parent — avoids brittle hardcoded fill=white
 - amber-solarpunk included proactively — Phase 5 Navbar hover/active states will need it
 
+05-01 decisions:
+- NavLink uses pathname === '/' for root detection (strict equality prevents matching every page)
+- Static bg-bark-950/90 backdrop-blur-md on Navbar — no scroll listener, Server Component preserved
+- CSS-only hamburger animation with three span transforms — no framer-motion for nav
+- pointer-events-none on closed mobile dropdown — prevents invisible click interception
+
 ### Pending Todos
 
 None.
@@ -74,6 +81,6 @@ None.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 04-01-PLAN.md
-Resume file: .planning/phases/04-design-system/04-01-SUMMARY.md
-Next action: /gsd:execute-phase 05
+Stopped at: Completed 05-01-PLAN.md
+Resume file: .planning/phases/05-navigation-hero/05-01-SUMMARY.md
+Next action: Execute 05-02-PLAN.md (21st.dev hero component)

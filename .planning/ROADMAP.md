@@ -55,7 +55,7 @@ Plans:
 **Plans**: 2 plans (Wave 1 parallel)
 
 Plans:
-- [ ] 05-01: Multi-page Navbar with NavLink RSC boundary, mobile menu, sticky blur, stub pages
+- [x] 05-01: Multi-page Navbar with NavLink RSC boundary, mobile menu, sticky blur, stub pages
 - [ ] 05-02: 21st.dev typographic hero with motion text animation and CTA buttons
 
 ### Phase 6: Content Pages
@@ -82,5 +82,5 @@ Plans:
 | 2. Pages | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 3. Launch | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 4. Design System | v2.0 | Complete    | 2026-03-03 | - |
-| 5. Navigation + Hero | v2.0 | 0/2 | Not started | - |
+| 5. Navigation + Hero | v2.0 | 1/2 | In progress | - |
 | 6. Content Pages | v2.0 | 0/3 | Not started | - |
