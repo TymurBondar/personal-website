@@ -9,7 +9,7 @@ export default function Footer() {
             tymurbondar@outlook.com
           </p>
         </div>
-        <Link href="https://www.linkedin.com/in/tymurbondar/" target="_blank">
+        <Link href="https://www.linkedin.com/in/tymurbondar/" target="_blank" className="flex-shrink-0">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width={24}
@@ -22,7 +22,7 @@ export default function Footer() {
             ></path>
           </svg>
         </Link>
-        <Link className="sm:px-4" href="https://t.me/BondarTymur" target="_blank">
+        <Link className="mx-3 flex-shrink-0" href="https://t.me/BondarTymur" target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width={24}
@@ -35,7 +35,7 @@ export default function Footer() {
             ></path>
           </svg>
         </Link>
-        <Link href="https://github.com/TymurBondar" target="_blank">
+        <Link href="https://github.com/TymurBondar" target="_blank" className="flex-shrink-0">
           <svg
             className="w-6 h-6 text-white"
             xmlns="http://www.w3.org/2000/svg"
