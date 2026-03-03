@@ -70,7 +70,7 @@ export default function HeroSection() {
         animate="visible"
       >
         {/* Name */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden pb-2">
           <AnimatedWords
             text="Tymur Bondar"
             className="block text-5xl sm:text-6xl lg:text-7xl text-cream-100"
