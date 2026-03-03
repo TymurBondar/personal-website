@@ -1,17 +1,17 @@
 # Project Research Summary
 
-**Project:** Personal Portfolio Website Modernization (Tymur Bondar)
-**Domain:** Software engineer personal portfolio — Next.js modernization
-**Researched:** 2026-03-02
-**Confidence:** HIGH (stack and architecture from official docs; features and pitfalls from multiple corroborating sources)
+**Project:** Tymur Bondar Personal Portfolio — v2.0 Design & Content
+**Domain:** Software engineer personal portfolio website
+**Researched:** 2026-03-03
+**Confidence:** HIGH
 
 ## Executive Summary
 
-This project is a focused modernization of an existing Next.js 14 portfolio, not a greenfield build. The site already has the right structure (App Router, 4-page multi-page layout, Vercel hosting), but carries three forms of technical debt that undermine its professional credibility: DaisyUI coupling throughout the component tree, stale content referencing the wrong location and employer history, and boilerplate metadata left over from `create-next-app`. The modernization goal is clean, fast, and self-contained — no CMS, no blog, no backend.
+This is a visual and content upgrade to an existing Next.js 15 + Tailwind CSS v4 portfolio that is already live on Vercel. The v1.0 foundation (App Router, React 19, ESLint, deployment) is locked in and working. v2.0 adds a solarpunk design system, a 21st.dev hero component, three new pages (About with career timeline, Portfolio with project cards, Contact), multi-page navigation with active state, and full SEO coverage. The recommended approach is to build the color token system first — every subsequent component depends on it — then layer layout infrastructure, the hero, content pages, and SEO in strict dependency order. Zero new npm packages are required for the core work; at most two optional packages (`next-themes` for dark mode toggle, `framer-motion` if the chosen 21st.dev component requires it) may be added.
 
-The recommended approach is to upgrade to Next.js 15 with React 19 and Tailwind CSS v4, remove DaisyUI completely and replace its semantic classes with explicit Tailwind utilities, update all content to reflect Toronto/Purdue/Spelling Bee of Canada/current role, and drop in one 21st.dev hero component as the visual centerpiece. CI/CD is scoped to a GitHub Actions lint gate plus Vercel's native git integration for zero-config auto-deploy. The `lib/data/` pattern for separating content from components is the key architectural decision for long-term maintainability.
+The solarpunk aesthetic is Tymur's strongest differentiator in the developer portfolio space. The practical implementation is a warm dark background (not pure black), vibrant emerald/forest green accents, and warm amber secondary tones — defined entirely via Tailwind v4's CSS-first `@theme` directive in `globals.css`. No `tailwind.config.js` should be created; Tailwind v4's CSS-first path makes it unnecessary and the legacy pattern. The 21st.dev hero is a copy-paste component (not an npm package) and must be adapted to match the solarpunk color tokens. All three portfolio projects have compelling visual outputs (YOLOv5 detection screenshots for the rover team, a live site screenshot for Spelling Bee of Canada) that should be used aggressively.
 
-The primary risk is the DaisyUI removal: it is not just a plugin removal but a behavior replacement, because DaisyUI's dropdown and mobile menu components use CSS-only focus tricks that will silently break after the plugin is removed. The correct mitigation is to audit every DaisyUI class before removing the plugin, replace interactive components with React state, and only remove DaisyUI as the final cleanup step after a full visual pass. Secondary risks are stale metadata shipping to production and the 21st.dev hero component's CSS variables conflicting with the custom Tailwind palette — both are low-effort to prevent if addressed in the right phase order.
+The biggest risks are implementation-time mistakes rather than architectural unknowns: incorrect Tailwind v4 dark mode setup that bakes values at build time instead of toggling at runtime, a flash of wrong theme on page load without a blocking inline script, forgetting `metadataBase` so all OG images produce broken social previews, and adding `"use client"` to the entire Navbar when only a small `NavLink` component needs it. All seven identified pitfalls have clear, low-effort prevention strategies and are well-documented in official sources. The domain is mature and the implementation patterns are well-established — confidence across all four research areas is HIGH.
 
 ---
 
@@ -19,204 +19,210 @@ The primary risk is the DaisyUI removal: it is not just a plugin removal but a b
 
 ### Recommended Stack
 
-The stack stays conservative and builds on what already works. Next.js 15 is the right upgrade target (not v16, which has breaking async API changes harder to retrofit onto an existing codebase). React 19 is required by Next.js 15's App Router. Tailwind CSS v4 replaces both Tailwind v3 and DaisyUI — its CSS-first `@theme` block in `globals.css` directly replaces `tailwind.config.js` theme extensions, and its built-in Lightning CSS autoprefixer eliminates the `autoprefixer` PostCSS dependency. ESLint 9 with flat config (`eslint.config.mjs`) is the 2025/2026 standard and is worth adopting now since Next.js 16 removed `next lint` entirely.
-
-Vercel's native GitHub integration handles all deployment — no GitHub Actions deploy step needed. GitHub Actions is used only for the lint gate on push to main. The 21st.dev hero is a copy-paste component installed into `app/components/ui/Hero.js`, not an npm package.
+The v1.0 stack (Next.js 15 App Router, React 19, Tailwind CSS v4, ESLint 9, Vercel) satisfies all v2.0 requirements with zero new core packages. All SEO features (metadata API, OG tags, sitemap.xml, robots.txt, JSON-LD), image optimization (`next/image`), and multi-page routing are built into Next.js 15. The `@theme` directive in Tailwind v4 generates all custom color utilities from a single CSS block in `globals.css`. This is the correct v4 approach — creating a `tailwind.config.js` for color customization is the deprecated v3 pattern.
 
 **Core technologies:**
-- **Next.js 15.x** — React framework, routing, SSG — safer upgrade than v16 for an existing codebase; CVE patch from v14
-- **React 19.x** — UI rendering — required by Next.js 15 App Router
-- **Tailwind CSS 4.2.1** — styling — replaces DaisyUI and autoprefixer; CSS-first `@theme` config; built-in Lightning CSS
-- **@tailwindcss/postcss 4.2.1** — PostCSS integration — required alongside tailwindcss for Next.js
-- **ESLint 9 (flat config)** — linting — future-proof; Next.js 16 already removed `next lint`
-- **Vercel native git integration** — hosting + deploy — zero config, auto-deploys on push to main
-- **GitHub Actions (lint only)** — CI gate — runs `eslint .` before merging; no deploy logic needed here
-- **21st.dev hero component (copy-paste)** — hero section — no npm install; paste into `components/ui/Hero.js`
+- Next.js 15 (App Router): routing, metadata API, image optimization, static generation — already installed
+- React 19: component model, Server/Client Component boundary — already installed
+- Tailwind CSS v4 (CSS-first via `@theme`): design token generation, dark variant, utility classes — already installed
+- Vercel: deployment, CDN edge caching, automatic CI on push — already configured
 
-**Critical version requirement:** `tailwindcss` and `@tailwindcss/postcss` must always be the same version — they are released together.
+**Optional additions (conditional only):**
+- `next-themes ^0.4.6`: dark/light mode toggle that persists via localStorage — only if manual toggle is built; system preference detection is zero-code via `prefers-color-scheme`
+- `framer-motion ^12.x`: animations for the chosen 21st.dev hero component — only if required by the specific component selected; React 19 compatible
 
 ### Expected Features
 
-The 4-page structure (Home, About, Portfolio, Contact) already exists and is the right shape. v1 is about filling it with accurate content and professional polish, not adding new pages.
+**Must have (table stakes — v2.0 launch blockers):**
+- Solarpunk color token system (`@theme` block in `globals.css`) — foundation for all visual work; every other feature depends on this
+- 21st.dev hero component on Home page — replaces current plain intro; defines the portfolio's visual identity
+- Multi-page Navbar — all 4 routes accessible; active page indicator via `usePathname`; RSC boundary with small `NavLink` client component
+- About page with vertical alternating career timeline — 4-5 entries (IT & DM role, Spelling Bee, Rover Team, Purdue CS); CSS-only; tech tags per entry
+- Portfolio page with 3 project cards — `next/image` screenshots; hover overlay; GitHub and live links; tech tags
+- Contact page — styled email CTA + labeled social links (LinkedIn, GitHub, Telegram); no form backend
+- Core SEO — `metadataBase`, unique title/description per page, OG tags, JSON-LD Person schema, favicon, sitemap.js, robots.js
+- Favicon + apple-touch-icon — visible from first Vercel preview deploy; file-based convention in `src/app/`
 
-**Must have (table stakes — P1 for launch):**
-- Hero section — name, title, 1-liner bio, CTA to projects and contact
-- Projects showcase — Fretly leads (published app, rare at junior level) + 2-3 additional projects; each with tech tags, GitHub link, live link
-- About page — brief story, career timeline (Binghamton → Purdue, NYC → Toronto, Spelling Bee of Canada internship, IT & Digital Marketing role), headshot
-- Contact section — Formspree/EmailJS form (no backend) + email link + GitHub/LinkedIn/Telegram
-- Downloadable PDF resume — linked from nav or hero CTA
-- Skills section — grouped by category, tag-style, no percentage bars
-- Responsive design — mobile-first; tested on real devices
-- Basic SEO — unique title + description per page, Open Graph tags, favicon
-- Footer — social links already exist; ensure GitHub/LinkedIn/Telegram are prominent
+**Should have (competitive differentiators — high value, low cost):**
+- Semantic color token layer (surface/accent/text aliases over raw scale) — enables dark mode without component rework
+- Current status indicator on hero ("Open to opportunities") — humanizes and provides context
+- Hover overlay on portfolio cards revealing description — modern feel, CSS-only
+- Emerald green accent on active nav link — consistent palette signal
+- Sticky navbar with backdrop blur — allows navigation from any scroll position
+- `aria-current="page"` on active nav link — accessibility standard
 
-**Should have (P2 — add after launch):**
-- Dark/light mode toggle — high value; requires DaisyUI removal complete and CSS custom properties design system solid first
-- JSON-LD structured data (Person schema) — low effort, high SEO value
-- Smooth scroll and subtle transitions — polish layer after content is finalized
-- Custom 404 page — 30-minute task; personality signal
-- Open Graph preview image — static image for link sharing
+**Defer to v2.1:**
+- Dark/light mode toggle — requires all components using semantic tokens; add after v2.0 CSS is stable; blocking FOWT script required
+- Scroll-reveal on career timeline — `IntersectionObserver`, no library, pure polish
+- Custom 404 page — personality signal, minimal effort
 
-**Defer (v2+):**
-- Blog — out of scope per PROJECT.md; requires sustained content commitment before building
-- Project case studies (full per-project pages) — valuable but write-intensive; content doesn't exist yet
-- Testimonials — defer until quotes are collected from Spelling Bee manager or Fretly collaborators
+**Defer to v3+:**
+- Per-project detail pages — case study format; requires writing time
+- Dynamic OG images via `@vercel/og` — significant complexity for a 4-page static site
+- Blog — explicitly out of scope per PROJECT.md
 
-**Anti-features to reject outright:** Skills progress bars (meaningless percentages), 3D hero (heavy bundle, wrong aesthetic), CMS (overkill for static solo content), full analytics dashboard visible to users, infinite scroll on projects.
+**Anti-features to reject:** GSAP/Framer Motion hero animations from scratch, full-screen video background, typing/typewriter text animation, particle effects, headshot in hero (belongs on About page), contact form with a backend service, skills percentage bars, any additional full component library (shadcn, HeroUI).
 
 ### Architecture Approach
 
-The architecture is a fully static Next.js App Router site: all pages are Server Components by default, statically generated at build time, served from Vercel's CDN edge with no runtime server. The only Client Component is `Navbar` (mobile menu toggle state). There is no global state — all content flows from plain JS data files in `lib/data/` imported directly into Server Component pages.
-
-The defining architectural decision is the **data-in-lib pattern**: project descriptions, career timeline entries, and site constants (name, email, social URLs) live in `lib/data/projects.js`, `lib/data/timeline.js`, and `lib/config.js`. Page components import from these files and map entries to display components. This keeps content updates isolated from layout code — critical for a portfolio that needs regular updates.
+The architecture is a fully static Next.js App Router site with three distinct layers: a design token layer (CSS custom properties in `globals.css`), a static data layer (plain JS arrays in `src/lib/data/`), and a component layer (Server Components for content rendering, Client Components isolated to interactive boundaries only). All four pages statically generate at build time — no server runtime, no database, no API calls. Data for the timeline and portfolio cards lives in `src/lib/data/timeline.js` and `src/lib/data/projects.js` and is imported into page files. Site-wide constants (name, email, nav links, social URLs) live in `src/lib/config.js` as the single source of truth consumed by layout, Navbar, Footer, and the Contact page.
 
 **Major components:**
-1. `app/layout.js` (Server Component) — root layout wrapping all pages; exports metadata; renders Navbar + Footer
-2. `components/layout/Navbar.js` (Client Component) — only component needing `'use client'`; manages mobile menu state with `useState`
-3. `components/ui/Hero.js` — 21st.dev copy-paste component; drop in here; may declare `'use client'` if it uses animations
-4. `components/ui/ProjectCard.js` (Server Component) — receives project data as props; purely presentational
-5. `components/ui/TimelineItem.js` (Server Component) — renders single career milestone
-6. `lib/data/projects.js` — plain JS array of project objects; the only place to edit when adding a project
-7. `lib/data/timeline.js` — plain JS array of career milestones; single source of truth for About page
-8. `lib/config.js` — site constants (name, email, social URLs, nav structure); imported everywhere; never duplicated
+1. `src/app/globals.css` — `@theme` solarpunk palette + `@custom-variant dark`; every component's visual foundation
+2. `src/lib/config.js` + `src/lib/data/` — static data arrays; no content duplication across components
+3. `src/components/layout/Navbar.js` (Server) + `src/components/ui/NavLink.js` (Client) — multi-page nav with minimal client boundary
+4. `src/components/ui/Hero.js` (Client, copy-paste from 21st.dev) — visual centerpiece of home page
+5. `src/components/ui/TimelineItem.js` + `src/components/ui/ProjectCard.js` (Server) — content display components
+6. `src/components/providers/ThemeProvider.js` (Client, optional) — isolates next-themes `"use client"` requirement
+7. `src/app/layout.js` — root metadata, JSON-LD Person schema, layout chrome
+
+**Key file structure additions:**
+```
+src/
+├── app/
+│   ├── about/page.js
+│   ├── portfolio/page.js
+│   ├── contact/page.js
+│   ├── sitemap.js
+│   └── robots.js
+├── components/
+│   ├── layout/ (Navbar.js, Footer.js)
+│   ├── ui/ (Hero.js, ProjectCard.js, TimelineItem.js, NavLink.js)
+│   └── providers/ (ThemeProvider.js — optional)
+└── lib/
+    ├── config.js
+    └── data/ (projects.js, timeline.js)
+```
 
 ### Critical Pitfalls
 
-1. **DaisyUI behavior classes silently break after plugin removal** — DaisyUI's `dropdown`, `dropdown-content`, `menu-sm` use CSS-only focus tricks. The mobile nav will stop functioning entirely. Mitigation: audit every DaisyUI class name before removing the plugin; rebuild Navbar mobile menu with React `useState` + click handler; only remove DaisyUI as the final step after visual verification.
+1. **`@theme inline` dark mode baked at build time** — Use the two-step pattern: raw values in `:root`/`.dark` blocks, then alias into `@theme`; test runtime toggle immediately on local dev before assuming it works. Colors must switch visually when `.dark` class is toggled — this is the verification gate.
 
-2. **DaisyUI CSS variables left behind in markup** — Classes like `bg-base-100`, `bg-base-300` resolve to transparent after plugin removal, causing invisible backgrounds and layout collapse. Mitigation: grep for all DaisyUI semantic classes (`bg-base-`, `btn`, `navbar`, `menu`, `dropdown`, `hero`, `timeline`) and replace with explicit Tailwind utilities before removing the plugin.
+2. **Flash of wrong theme on page load (FOWT)** — Inject a blocking inline `<script>` in `<head>` that reads localStorage and sets the `.dark` class before the browser paints; add `suppressHydrationWarning` to `<html>`; this must accompany any manual theme toggle feature.
 
-3. **Stale metadata ships to production** — Current `layout.js` has `description: "Generated by create next app"`. Without fixing `metadataBase` and per-page metadata, LinkedIn shares will show embarrassing boilerplate. Mitigation: set `metadataBase` in root layout immediately; write unique title and description per page; verify via `opengraph.xyz` before launch.
+3. **Missing `metadataBase` breaks all OG images in production** — Set `metadataBase: new URL("https://tymurbondar.com")` in root `layout.js` as the very first SEO task; without it, all OG image URLs are relative and social platforms cannot fetch them; validate with opengraph.xyz against the production URL, not localhost.
 
-4. **Outdated content erodes professional credibility** — Site currently says "New York BASED" and references NYC. Mismatches with actual situation (Toronto, Purdue, Spelling Bee of Canada) are noticed by any recruiter who cross-references with LinkedIn. Mitigation: treat content update as Phase 1, not a finishing step.
+4. **`"use client"` on entire Navbar** — Extract only a `NavLink.js` Client Component for `usePathname`; the outer Navbar stays a Server Component; establish this RSC boundary from the start — refactoring later is avoidable work.
 
-5. **21st.dev hero CSS variables conflict with custom Tailwind palette** — 21st.dev components use shadcn-style CSS variables (`--background`, `--foreground`, `--primary`). Without defining matching variables, the hero will look visually inconsistent. Mitigation: inspect the hero component's CSS variable requirements before styling the rest of the site; define variables in `globals.css` `:root` first.
+5. **21st.dev component dependency conflicts** — Read full component source before pasting; identify every import; install `framer-motion` if required; remove Tailwind `transition-*` classes from Motion-animated elements (Motion uses inline styles that conflict with class-based transitions, causing stuttery animations).
+
+6. **Portfolio images causing CLS** — Use `next/image` with static imports (auto-detects dimensions) or `fill` with an `aspect-video` wrapper for all project screenshots; never use raw `<img>` tags; add `priority` to the first visible image on each page only.
+
+7. **JSON-LD XSS via unescaped `<` characters** — Always apply `.replace(/</g, "\\u003c")` to every `JSON.stringify(schema)` call; this is documented in the official Next.js JSON-LD guide.
 
 ---
 
 ## Implications for Roadmap
 
-Based on combined research, the dependencies are clear: content and DaisyUI removal must come first because they create the stable foundation that all styling and feature work builds on. The Tailwind v4 and Next.js upgrades are mechanical (codemod-assisted) and can run alongside the first phase. The hero component integration comes after the design system is established. CI/CD is a one-time setup with no phase dependency.
+Based on the dependency chain discovered in research, the build order is strictly determined by what each phase depends on. The suggested phase structure maps directly to the Architecture research build order.
 
-### Phase 1: Foundation — Content Audit, DaisyUI Removal, Stack Upgrade
+### Phase 1: Design System (Color Tokens)
 
-**Rationale:** Content staleness and DaisyUI coupling are the two highest-risk issues. Fixing content first ensures no styling work is done on incorrect copy. Removing DaisyUI before any new styling prevents confusion about which classes are active. The Next.js 15 + Tailwind v4 upgrade is codemod-assisted and creates the clean baseline everything else builds on.
+**Rationale:** Every visual component in every subsequent phase depends on the `@theme` color token system. Building this first means all subsequent components use the correct classes in a single pass. Building it later requires retroactively updating classes in every component — avoidable double-work.
 
-**Delivers:** A site with correct, accurate content; no DaisyUI dependency; upgraded to Next.js 15 + React 19 + Tailwind v4; Navbar rebuilt with React state.
+**Delivers:** Tailwind utility classes for all solarpunk colors (`bg-bark`, `text-canopy`, `text-emerald`, etc.); `@custom-variant dark` for future dark mode; semantic token aliases; existing pages updated to use new tokens instead of interim `bg-gray-900` / `text-gray-*` classes.
 
-**Addresses:** Hero section (placeholder), About page content, footer social links (already exist), responsive foundation.
+**Addresses:** Solarpunk color palette (table stakes foundation), dark/light mode foundation (semantic token layer ready for Phase 6)
 
-**Avoids:** DaisyUI CSS variable ghost classes breaking layouts; outdated content launching into production; Tailwind v4 conflicts with DaisyUI if both are present.
+**Avoids pitfalls:** `@theme inline` baked values — test runtime toggling immediately; token naming conflicts — use unique names (`forest`, `bark`, `canopy`) that do not shadow Tailwind defaults
 
-**Key tasks:**
-- Update location, university, employer, timeline entries across all pages
-- Audit and replace all DaisyUI class names with Tailwind utilities
-- Rebuild Navbar mobile menu with `useState` + click handler
-- Remove DaisyUI from dependencies only after full visual check
-- Run `npx @next/codemod@canary upgrade latest` for Next.js 15 migration
-- Migrate to Tailwind v4: `npm uninstall tailwindcss daisyui autoprefixer && npm install -D tailwindcss@latest @tailwindcss/postcss@latest`
-- Convert `globals.css` to `@import "tailwindcss"` + `@theme` block
+**Research flag:** Standard Tailwind v4 patterns — HIGH confidence, no deeper research needed
 
-### Phase 2: Structure and Architecture
+---
 
-**Rationale:** Before adding content, establish the `lib/data/` pattern to ensure all subsequent content work goes into the right files. Setting up the data layer and component structure first means every future content change is a one-line edit in a data file, not a search through JSX.
+### Phase 2: Layout Infrastructure
 
-**Delivers:** Clean project structure with `lib/data/projects.js`, `lib/data/timeline.js`, `lib/config.js`; `components/layout/` and `components/ui/` separation established; root layout metadata configured with correct `metadataBase`.
+**Rationale:** Pages import from layout components. The Navbar must have all 4 nav links before any new pages are created so navigation works immediately once routes exist. `lib/config.js` must be the single source of truth for nav links, social URLs, and site constants before Footer, Navbar, and metadata all independently need them.
 
-**Addresses:** Projects showcase (data structure), career timeline (data structure), SEO metadata base layer.
+**Delivers:** `src/lib/config.js` with site constants; `Navbar.js` moved to `src/components/layout/` with multi-page links and RSC boundary; `Footer.js` moved and importing from config; imports updated in `layout.js`
 
-**Avoids:** Hardcoded content in page JSX (anti-pattern); duplicate social URLs and site constants scattered across components; missing `metadataBase` causing OG images to break as relative URLs in production.
+**Addresses:** Multi-page navigation (table stakes), active page indicator, footer social link consistency
 
-**Key tasks:**
-- Create `lib/data/projects.js` with Fretly + additional projects
-- Create `lib/data/timeline.js` with career milestones
-- Create `lib/config.js` with site name, email, social URLs, nav structure
-- Wire ProjectCard and TimelineItem components to data files
-- Set `metadataBase` in root layout; configure title template
+**Avoids pitfalls:** `"use client"` on entire Navbar — establish `NavLink.js` Client Component boundary here at origin, not in a later refactor
 
-### Phase 3: Visual Design and Hero Integration
+**Research flag:** Standard Next.js App Router patterns — HIGH confidence, no deeper research needed
 
-**Rationale:** Once DaisyUI is removed and the data layer is set, establish the design system (color palette, typography, spacing) in Tailwind's `@theme` block before integrating the 21st.dev hero — this prevents CSS variable conflicts.
+---
 
-**Delivers:** Consistent visual design across all pages; 21st.dev hero component integrated and matching site palette; image optimization using `next/image` throughout; responsive layout verified on mobile.
+### Phase 3: Hero Component
 
-**Addresses:** Hero section (primary differentiator), responsive design (table stakes), performance (LCP, CLS from image optimization).
+**Rationale:** The home page is the first thing visitors see and defines the visual identity of the portfolio. With the design system in place (Phase 1), adapting the hero's classes is a single pass. Doing this before content pages means any visual adjustments to the solarpunk aesthetic are calibrated before they cascade.
 
-**Avoids:** 21st.dev hero CSS variables conflicting with site palette; raw `<img>` tags causing CLS layout shift and poor LCP; DaisyUI-specific spacing or sizing bleeding into new components.
+**Delivers:** 21st.dev hero component integrated at `src/components/ui/Hero.js`; Tailwind classes adapted to solarpunk tokens; imported into `src/app/page.js` as a Client Component nested cleanly within a Server Component page
 
-**Key tasks:**
-- Define color palette, typography, and spacing in `globals.css` `@theme` block
-- Identify CSS variables required by chosen 21st.dev hero component; define them in `:root`
-- Drop in hero component into `components/ui/Hero.js`
-- Replace all `<img>` with `next/image` with explicit `width`/`height` or `fill`; add `priority` to hero image
-- Test on real mobile device (not just browser resize)
+**Addresses:** 21st.dev hero (primary visual differentiator), solarpunk visual identity, hero CTA buttons
 
-### Phase 4: Content Polish and SEO
+**Avoids pitfalls:** 21st.dev dependency audit — read full component source first; install framer-motion if needed; remove conflicting Tailwind `transition-*` classes from Motion-animated elements
 
-**Rationale:** After structure and design are stable, fill in the content details and SEO layer. Meta tags require final page content to write accurately — they should be the last step, not the first.
+**Research flag:** MEDIUM confidence — specific component selection determines dependencies. A brief 5-minute dependency audit (reading the component source before pasting) is required during planning. The copy-paste integration model itself is HIGH confidence.
 
-**Delivers:** Unique page titles and descriptions per page; Open Graph tags verified via `opengraph.xyz`; JSON-LD Person schema; contact section with Formspree form; PDF resume linked; skills section finalized.
+---
 
-**Addresses:** All table-stakes SEO (unique titles, descriptions, OG tags); contact form (Formspree/EmailJS — no backend); downloadable PDF resume; skills section.
+### Phase 4: Content Pages
 
-**Avoids:** "Generated by create next app" shipping to production on LinkedIn share; OG images as broken relative URLs; missing `robots.txt` and `sitemap.xml` blocking Google indexing.
+**Rationale:** About, Portfolio, and Contact pages can only be built after the design system and navigation exist. About comes before Portfolio because it has no image complexity (validates the data-in-lib pattern before adding image handling). Portfolio comes before Contact because it is the most technically complex. Contact is trivially simple and closes the phase.
 
-**Key tasks:**
-- Write unique `title` and `description` for each page
-- Add `og:title`, `og:description`, `og:image`, `twitter:card` metadata
-- Add `robots.ts` and `sitemap.ts` (Next.js serves at correct paths automatically)
-- Add JSON-LD Person schema block to layout
-- Integrate Formspree or EmailJS for contact form (no backend)
-- Link PDF resume from nav and/or hero CTA
-- Verify all metadata via LinkedIn post inspector and `opengraph.xyz`
+**Delivers:**
+- `src/lib/data/timeline.js` + `src/components/ui/TimelineItem.js` + `src/app/about/page.js` (vertical alternating CSS-only timeline with tech tags)
+- `src/lib/data/projects.js` + project images in `public/images/projects/` + `src/components/ui/ProjectCard.js` + `src/app/portfolio/page.js` (3 project cards with hover overlay)
+- `src/app/contact/page.js` (styled email CTA + labeled social links)
 
-### Phase 5: CI/CD and Launch Verification
+**Addresses:** Career timeline, portfolio project cards, contact page (all P1 table stakes)
 
-**Rationale:** CI/CD is a one-time setup with no content dependency, but it is placed last because the lint gate should run against final code to catch real issues, not noise from migration churn.
+**Avoids pitfalls:** Portfolio image CLS — use static imports or `fill` + `aspect-video` wrapper; never raw `<img>` tags
 
-**Delivers:** GitHub Actions lint workflow on push to main; confirmed Vercel native git integration (not both simultaneously); launch checklist verified.
+**Research flag:** Standard patterns — HIGH confidence across all three pages. Portfolio images require attention to `next/image` props; well-documented.
 
-**Addresses:** Essential CI/CD (per PROJECT.md scope); double-deploy prevention; mobile nav verification; Lighthouse performance check.
+---
 
-**Avoids:** GitHub Actions deploy running alongside Vercel native integration (double-deploy); lint job using `next build` instead of `eslint .` (lint errors swallowed); CI workflow that includes a Vercel deploy step unnecessarily.
+### Phase 5: SEO
 
-**Key tasks:**
-- Create `.github/workflows/ci.yml` with lint job only (no deploy)
-- Confirm Vercel's native git integration is handling deploy (not GitHub Actions)
-- Run full "looks done but isn't" checklist: mobile nav, OG tags, image CLS, Lighthouse score, single deploy per push
-- Confirm zero mentions of "New York" or "NYC" anywhere in codebase
+**Rationale:** SEO metadata wraps all existing pages — unique descriptions and titles can only be written once the pages exist and their content is final. `metadataBase` is the critical first task within this phase; all OG image URLs depend on it being set before any images are referenced.
 
-### Phase 6: Post-Launch Polish (v1.x)
+**Delivers:** `metadataBase` in root layout; unique title/description per page; OG tags; JSON-LD Person schema (with XSS escape); favicon + apple-touch-icon (file-based in `src/app/`); `src/app/sitemap.js`; `src/app/robots.js`
 
-**Rationale:** These features are high-value but require the v1 foundation to be stable first. Dark mode in particular requires DaisyUI to be fully removed and the CSS custom properties system to be solid.
+**Addresses:** Full SEO coverage, JSON-LD Person schema for Google and AI search engines, sitemap.xml, robots.txt
 
-**Delivers:** Dark/light mode toggle; custom 404 page; smooth scroll and subtle transitions; possibly Open Graph preview image.
+**Avoids pitfalls:** Missing `metadataBase` — set first, validate production URL with opengraph.xyz; JSON-LD XSS — `.replace(/</g, "\\u003c")`; static `public/sitemap.xml` blocking generated version — use only the `app/sitemap.js` file convention
 
-**Addresses:** Dark/light mode (82% of users prefer dark; signals UX sensibility); 404 page (attention to detail signal).
+**Research flag:** Standard Next.js 15 patterns — HIGH confidence across all SEO tasks. No deeper research needed.
 
-**Avoids:** Dark mode implementation conflicting with any remaining DaisyUI variable references.
+---
+
+### Phase 6: Dark Mode Toggle (Optional)
+
+**Rationale:** Dark mode is a nice-to-have per PROJECT.md. It is isolated from all other phases — the `@custom-variant dark` defined in Phase 1 means adding the toggle is purely additive. Building last ensures zero rework risk. If time-constrained, system preference detection (via `prefers-color-scheme` media query) is zero-code and requires no npm package.
+
+**Delivers:** `next-themes` install; `src/components/providers/ThemeProvider.js`; ThemeToggle button in Navbar with `mounted` guard; `suppressHydrationWarning` on `<html>`; blocking inline script for FOWT prevention
+
+**Addresses:** Dark/light mode toggle with localStorage persistence and system preference fallback
+
+**Avoids pitfalls:** FOWT — blocking inline `<script>` in `<head>` before first paint; ThemeProvider SSR errors — Client Component wrapper in `providers/`; hydration mismatch on ThemeToggle — `mounted` guard before rendering toggle UI
+
+**Research flag:** Standard patterns — HIGH confidence. `next-themes` is the dominant Next.js dark mode solution and its integration with Tailwind v4 is well-documented.
 
 ---
 
 ### Phase Ordering Rationale
 
-- **Content before styling:** Stale content is the highest-credibility risk. If visual work happens on incorrect copy, the copy gets buried and forgotten.
-- **DaisyUI removal before new styling:** Attempting to add new styles while DaisyUI is still present creates confusion about which CSS is active. Full removal first gives a clean palette.
-- **Data layer before content fill:** If content is hardcoded into JSX before the data layer is established, migrating it later is tedious. Setting up `lib/data/` first takes 30 minutes and prevents hours of refactoring.
-- **Design system before hero integration:** The 21st.dev hero requires CSS variables that must match the surrounding design tokens. Establishing the `@theme` block first means the hero is integrated into a coherent system, not bolted on top of undefined variables.
-- **Content before SEO metadata:** Meta descriptions must accurately describe page content. Writing them before content is final produces boilerplate that won't be updated.
-- **CI/CD last:** The lint gate catches real errors best when run against finished code. Running it against migration churn generates noise.
+- **Tokens before components:** Color tokens are a hard dependency for every component. There is no safe way to build components before tokens exist without doing all the styling work twice.
+- **Layout before pages:** Pages import layout components. Nav links must exist before routes are created — otherwise navigation is broken for the first several builds.
+- **Hero before content pages:** Establishes the visual baseline. Any design system calibrations happen here before they propagate to other pages.
+- **Content pages in complexity order:** About (simplest — no images) validates the data-in-lib pattern; Portfolio (images and hover states) applies the pattern under more complex conditions; Contact (static) closes the phase quickly.
+- **SEO last in v2.0 core:** Metadata requires all pages to exist; unique descriptions are written against finalized page content.
+- **Dark mode isolated and optional:** Zero dependency on any other phase after Phase 1; purely additive; can be deferred indefinitely without blocking anything else.
 
 ### Research Flags
 
-Phases with standard, well-documented patterns (no additional research needed):
-- **Phase 1 (Foundation):** Next.js 15 upgrade is codemod-assisted with official migration guide. Tailwind v4 migration has official docs. DaisyUI class inventory is already compiled in PITFALLS.md.
-- **Phase 3 (Visual Design):** Tailwind v4 `@theme` configuration is well-documented. `next/image` API is stable and officially documented.
-- **Phase 5 (CI/CD):** GitHub Actions lint-only workflow is straightforward. Vercel native git integration is well-documented.
+Phases needing extra attention during planning:
+- **Phase 3 (Hero):** Component selection at planning time requires reading the specific 21st.dev component's source code to identify dependencies before pasting. This is a brief audit during planning, not a research task — but it must happen before implementation begins.
 
-Phases that may benefit from deeper research during planning:
-- **Phase 3 (21st.dev hero integration):** The specific component chosen by Tymur will determine which CSS variables are needed and whether it requires `'use client'`. Research depends on the actual component selection.
-- **Phase 4 (contact form):** Formspree vs. EmailJS trade-offs (rate limits, pricing, spam protection) may need validation at implementation time based on Tymur's preference.
+Phases with well-established patterns (no deeper research needed):
+- **Phase 1 (Design System):** Tailwind v4 `@theme` is thoroughly documented with official sources; OKLCH color notation is Tailwind's own recommendation
+- **Phase 2 (Layout):** Next.js App Router RSC boundaries are standard, well-documented patterns
+- **Phase 4 (Content Pages):** CSS timeline, `next/image` with static imports, static contact page — all well-documented in official sources
+- **Phase 5 (SEO):** Next.js 15 metadata API is fully documented; official docs are the sufficient reference
+- **Phase 6 (Dark Mode):** `next-themes` + Tailwind v4 combination has multiple high-quality guides matching official docs
 
 ---
 
@@ -224,48 +230,51 @@ Phases that may benefit from deeper research during planning:
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All recommendations verified against official Next.js, Tailwind CSS, and Vercel docs. npm registry versions confirmed 2026-03-02. |
-| Features | MEDIUM-HIGH | Patterns consistent across 10+ authoritative sources (CareerFoundry, BrainStation, Codecademy, DEV community reviews). Feature prioritization is well-supported. |
-| Architecture | HIGH | Directly derived from official Next.js App Router documentation. Data-in-lib pattern is practitioner-validated. Component boundaries match official guidance. |
-| Pitfalls | MEDIUM | Critical pitfalls are well-supported (official docs for metadata, image optimization). DaisyUI removal specifics are MEDIUM because removal scenarios are not formally documented by DaisyUI; derived from class inventory audit and CSS behavior analysis. |
+| Stack | HIGH | All recommendations verified against official Next.js 15 and Tailwind v4 documentation updated 2026-02-27; zero ambiguity on package requirements; minimum install for v2.0 is zero new packages |
+| Features | HIGH | SEO and navigation patterns from official docs; portfolio, timeline, and contact patterns consistent across 10+ sources; solarpunk-specific aesthetics are MEDIUM (niche, fewer authoritative references) but design decisions are clear |
+| Architecture | HIGH | File structure, RSC boundaries, data flow, and component responsibilities all verified against official Next.js App Router patterns; dark mode architecture corroborated by multiple community sources matching official docs |
+| Pitfalls | HIGH | All 7 critical pitfalls identified with specific prevention strategies; all sourced from official Next.js and Tailwind v4 docs or directly corroborated against them |
 
-**Overall confidence:** HIGH
+**Overall confidence: HIGH**
 
 ### Gaps to Address
 
-- **21st.dev hero component selection:** Research is generic — actual CSS variable requirements depend on the specific hero component chosen. Address during Phase 3 planning by inspecting the chosen component's source before starting integration.
-- **Contact form service selection:** Formspree and EmailJS are both valid. No strong differentiator found in research. Decision can be made at Phase 4 based on current pricing and rate limits at implementation time.
-- **Dark mode implementation timing:** Research confirms dark mode is high-value (P2), but the CSS custom properties scope depends on how thorough the `@theme` setup is in Phase 3. Flag for evaluation after Phase 3 is complete.
+- **21st.dev specific component:** The exact hero component is not selected in research. Selection happens during Phase 3 planning. The copy-paste integration model is HIGH confidence; the specific component's dependencies (framer-motion or not) are unknown until selection. Resolution: choose a component during phase planning, read its full imports, install only what is actually needed.
+
+- **Solarpunk token values:** Two research files propose slightly different color scales (STACK.md uses a forest-named scale; FEATURES.md uses a surface/accent/warm-secondary semantic approach). Both are consistent in hue direction. The FEATURES.md token set is more semantically structured and should be the canonical reference; ARCHITECTURE.md's named approach (forest/bark/canopy) provides the naming convention. Resolution: reconcile during Phase 1 planning into a single authoritative token set.
+
+- **Project images:** Actual screenshots for rover-team.jpg and spelling-bee.jpg need to be captured and placed in `public/images/projects/` before Phase 4 can complete. This is a content dependency, not a technical uncertainty.
+
+- **Social profile exact URLs:** The JSON-LD schema and `lib/config.js` need confirmed GitHub, LinkedIn, and Telegram profile URLs. ARCHITECTURE.md references `TymurBondar` for GitHub and `/tymurbondar` for LinkedIn — verify exact usernames before Phase 5 SEO work.
 
 ---
 
 ## Sources
 
-### Primary (HIGH confidence)
-- [Next.js v15 upgrade guide](https://nextjs.org/docs/app/guides/upgrading/version-15) — async API breaking changes, React 19 requirement, caching defaults
-- [Next.js v16 upgrade guide](https://nextjs.org/docs/app/guides/upgrading/version-16) — why v15 is the right target for this project (v16 Node 20.9+ requirement, ESLint removal)
-- [Tailwind CSS v4.0 announcement](https://tailwindcss.com/blog/tailwindcss-v4) — CSS-first config, @tailwindcss/postcss, performance benchmarks
-- [Tailwind CSS + Next.js installation guide](https://tailwindcss.com/docs/guides/nextjs) — postcss.config.mjs setup verified
-- [Next.js Official Docs: Project Structure](https://nextjs.org/docs/app/getting-started/project-structure) — App Router component boundaries
-- [Next.js Official Docs: Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components) — server/client boundary patterns
-- [Next.js official metadata docs](https://nextjs.org/learn/dashboard-app/adding-metadata) — metadataBase requirement, per-page overrides
-- [Next.js official image docs](https://nextjs.org/docs/14/app/building-your-application/optimizing/images) — next/image, CLS prevention
-- [Vercel for GitHub docs](https://vercel.com/docs/git/vercel-for-github) — native integration vs. GitHub Actions
+### Primary (HIGH confidence — official documentation)
+- [Tailwind CSS v4 Colors / @theme Directive](https://tailwindcss.com/docs/colors) — `@theme` syntax, OKLCH recommendation
+- [Tailwind CSS v4 Dark Mode](https://tailwindcss.com/docs/dark-mode) — `@custom-variant dark` replacing `darkMode: "class"`
+- [Next.js Metadata and OG Images](https://nextjs.org/docs/app/getting-started/metadata-and-og-images) — metadata export, file conventions; last updated 2026-02-27
+- [Next.js generateMetadata API Reference](https://nextjs.org/docs/app/api-reference/functions/generate-metadata) — full metadata fields
+- [Next.js JSON-LD Guide](https://nextjs.org/docs/app/guides/json-ld) — plain script tag pattern, XSS escape
+- [Next.js sitemap.xml File Convention](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap)
+- [Next.js robots.txt File Convention](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots)
+- [Next.js App Icons File Convention](https://nextjs.org/docs/app/api-reference/file-conventions/metadata/app-icons) — last updated 2026-02-27
+- [Next.js Image Component API Reference](https://nextjs.org/docs/app/api-reference/components/image) — sizes, placeholder, priority props
+- [Next.js usePathname Docs](https://nextjs.org/docs/app/api-reference/functions/use-pathname)
+- [Next.js Server and Client Components Guide](https://nextjs.org/docs/app/getting-started/server-and-client-components)
+- [next-themes GitHub](https://github.com/pacocoursey/next-themes) — v0.4.6 current
 
-### Secondary (MEDIUM confidence)
-- [CareerFoundry: Software Engineer Portfolio Guide + 24 Examples](https://careerfoundry.com/en/blog/web-development/software-engineer-portfolio/) — table stakes features
-- [BrainStation: How to Build a Software Engineer Portfolio](https://brainstation.io/career-guides/how-to-build-a-software-engineer-portfolio) — feature prioritization
-- [DEV Community: 200+ portfolio reviews](https://dev.to/matthewhou/ive-reviewed-200-developer-portfolios-90-make-the-same-4-mistakes-16kd) — UX pitfalls
-- [AlterSquare: Dark Mode vs Light Mode UX Guide 2025](https://altersquare.io/dark-mode-vs-light-mode-the-complete-ux-guide-for-2025/) — dark mode usage statistics
-- [Shipixen: SEO Checklist for Developer Portfolios](https://shipixen.com/blog/seo-checklist-for-developer-portfolios-and-landing-pages) — SEO requirements
-- [Best Practices for Organizing Next.js 15 — DEV Community](https://dev.to/bajrayejoon/best-practices-for-organizing-your-nextjs-15-2025-53ji) — project structure patterns
-- npm registry: `next`, `tailwindcss`, `@tailwindcss/postcss` — versions verified 2026-03-02
-- [21st.dev hero components](https://21st.dev/community/components/s/hero) — copy-paste model confirmed
-
-### Tertiary (LOW confidence)
-- [Next.js Best Practices 2026 — Serviots](https://www.serviots.com/blog/nextjs-development-best-practices) — single source, not verified against official docs; findings consistent with other sources but treat with caution
-- DaisyUI removal pitfalls — removal scenario not formally documented by DaisyUI; PITFALLS.md findings derived from class inventory audit and CSS behavior analysis
+### Secondary (MEDIUM confidence — community sources corroborating official docs)
+- [Dark Mode in Next.js 15 + Tailwind v4 — sujalvanjare.com](https://www.sujalvanjare.com/blog/dark-mode-nextjs15-tailwind-v4)
+- [Theming in Tailwind CSS v4 — Medium/Ramin Yavari](https://medium.com/@sir.raminyavari/theming-in-tailwind-css-v4-support-multiple-color-schemes-and-dark-mode-ba97aead5c14)
+- [21st.dev Hero Components](https://21st.dev/community/components/s/hero) — 73+ components; copy-paste model confirmed
+- [OKLCH for Design Tokens — Evil Martians](https://evilmartians.com/chronicles/better-dynamic-themes-in-tailwind-with-oklch-color-magic)
+- [Portfolio best practices — Colorlib 2026](https://colorlib.com/wp/developer-portfolios/), [SiteBuilderReport 2026](https://www.sitebuilderreport.com/inspiration/engineer-portfolios)
+- [RSC Performance Pitfalls — LogRocket](https://blog.logrocket.com/react-server-components-performance-mistakes)
+- [Active nav links in Next.js App Router — spacejelly.dev](https://spacejelly.dev/posts/how-to-style-active-links-in-next-js-app-router)
+- [Tailwind v4 @theme Discussion — GitHub](https://github.com/tailwindlabs/tailwindcss/discussions/18471)
 
 ---
-*Research completed: 2026-03-02*
+*Research completed: 2026-03-03*
 *Ready for roadmap: yes*
