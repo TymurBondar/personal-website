@@ -3,7 +3,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata = {
   title: "Tymur Bondar",
@@ -12,11 +12,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className="flex flex-col min-h-screen text-white">
+    <html lang="en" className={inter.variable}>
+      <body className="flex flex-col min-h-screen">
         {/* Layout UI */}
         <Navbar />
-        <main className="bg-gray-900 flex-grow content-center">{children}</main>
+        <main className="bg-bark-950 flex-grow content-center">{children}</main>
         <Footer/>
       </body>
     </html>

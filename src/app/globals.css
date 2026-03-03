@@ -1,7 +1,35 @@
 @import "tailwindcss";
 
-/* Interim dark theme — Phase 2 will replace with @theme solarpunk palette */
-body {
-  background-color: #111827; /* gray-900 */
-  color: #f3f4f6; /* gray-100 */
+@theme {
+  /* Colors — OKLCH, solarpunk palette */
+  --color-bark-950: oklch(0.19 0.014 240);
+  --color-bark-900: oklch(0.24 0.012 240);
+  --color-forest-700: oklch(0.42 0.09 148);
+  --color-forest-600: oklch(0.48 0.10 148);
+  --color-forest-500: oklch(0.54 0.11 148);
+  --color-forest-400: oklch(0.62 0.10 148);
+  --color-cream-100: oklch(0.94 0.025 90);
+  --color-cream-200: oklch(0.82 0.022 90);
+  --color-amber-solarpunk: oklch(0.78 0.14 75);
+
+  /* Typography */
+  --font-weight-display: 800;
+  --tracking-display: -0.025em;
+
+  /* Spacing */
+  --spacing-section: 5rem;
+  --spacing-content: 2.5rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    background-color: var(--color-bark-950);
+    color: var(--color-cream-100);
+  }
 }
