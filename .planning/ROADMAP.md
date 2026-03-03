@@ -22,7 +22,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 **Milestone Goal:** Transform the clean v1.0 foundation into a polished multi-page portfolio with solarpunk design system, 21st.dev hero component, career timeline, project showcases, and full content pages.
 
-- [ ] **Phase 4: Design System** - Define solarpunk color palette and typography in Tailwind @theme
+- [x] **Phase 4: Design System** - Define solarpunk color palette and typography in Tailwind @theme (completed 2026-03-03)
 - [ ] **Phase 5: Navigation + Hero** - Multi-page nav with active state and 21st.dev hero on Home
 - [ ] **Phase 6: Content Pages** - About timeline, Portfolio cards, and Contact page
 
@@ -52,11 +52,11 @@ Plans:
   3. Navbar sticks to the top of the viewport on scroll with a visible backdrop-blur effect
   4. Home page displays the 21st.dev hero component styled with solarpunk color tokens — not the v1.0 plain intro text
   5. usePathname() is isolated to a small NavLink client component; the outer Navbar remains a Server Component
-**Plans**: TBD
+**Plans**: 2 plans (Wave 1 parallel)
 
 Plans:
-- [ ] 05-01: Update Navbar to multi-page structure with NavLink RSC boundary
-- [ ] 05-02: Integrate 21st.dev hero component on Home page
+- [ ] 05-01: Multi-page Navbar with NavLink RSC boundary, mobile menu, sticky blur, stub pages
+- [ ] 05-02: 21st.dev typographic hero with motion text animation and CTA buttons
 
 ### Phase 6: Content Pages
 **Goal**: Users can visit About, Portfolio, and Contact pages and find complete, accurate, polished content representing Tymur's career history, projects, and contact information
@@ -81,6 +81,6 @@ Plans:
 | 1. Foundation | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 2. Pages | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 3. Launch | v1.0 | 2/2 | Complete | 2026-03-03 |
-| 4. Design System | v2.0 | 0/1 | Not started | - |
+| 4. Design System | v2.0 | Complete    | 2026-03-03 | - |
 | 5. Navigation + Hero | v2.0 | 0/2 | Not started | - |
 | 6. Content Pages | v2.0 | 0/3 | Not started | - |
