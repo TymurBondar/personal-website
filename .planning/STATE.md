@@ -1,85 +1,79 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: unknown
-last_updated: "2026-03-03T16:57:59.159Z"
+milestone: v2.0
+milestone_name: Design & Content
+status: in_progress
+last_updated: "2026-03-03T18:40:40Z"
 progress:
   total_phases: 3
-  completed_phases: 3
+  completed_phases: 0
   total_plans: 6
-  completed_plans: 6
+  completed_plans: 1
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-02)
+See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** A clean, polished site that accurately represents who Tymur is as a software engineer
-**Current focus:** Phase 1 — Foundation
+**Current focus:** v2.0 Design & Content — Phase 4: Design System
 
 ## Current Position
 
-Phase: 3 of 3 (Launch) -- IN PROGRESS
-Plan: 2 of 2 in current phase
-Status: Plan 03-02 Complete
-Last activity: 2026-03-03 — Completed 03-02 (README Documentation)
+Phase: 4 of 6 (Design System)
+Plan: 1 of 1 in current phase (COMPLETE)
+Status: Phase 4 complete — ready for Phase 5
+Last activity: 2026-03-03 — Plan 04-01 complete: solarpunk @theme tokens + font wiring + all component migrations
 
-Progress: [██████████] 100%
+Progress: [██░░░░░░░░] 17%
 
 ## Performance Metrics
 
-**Velocity:**
-- Total plans completed: 2
-- Average duration: 7min
-- Total execution time: 14min
+**v1.0 Velocity (reference):**
+- Total plans completed: 6
+- Total tasks: 11
+- Timeline: 1 day
 
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
-
-**Recent Trend:**
-- Last 5 plans: —
-- Trend: —
-
-*Updated after each plan completion*
-| Phase 01-foundation P01 | 12min | 2 tasks | 5 files |
-| Phase 01-foundation P02 | 2min | 2 tasks | 6 files |
-| Phase 03-launch P02 | 2min | 1 task | 1 file |
-| Phase 03 P01 | 2min | 2 tasks | 3 files |
+**v2.0 Metrics:**
+| Phase | Plan | Duration | Tasks | Files |
+|-------|------|----------|-------|-------|
+| 04-design-system | 04-01 | 2min | 2 | 5 |
 
 ## Accumulated Context
 
 ### Decisions
 
-Decisions are logged in PROJECT.md Key Decisions table.
-Recent decisions affecting current work:
+All decisions logged in PROJECT.md Key Decisions table with outcomes.
 
-- Remove DaisyUI before any new styling — prevents confusion about which CSS is active
-- Next.js 15 (not 16) is the right upgrade target — v16 has harder async API breaking changes
-- DaisyUI removal is the highest-risk step — rebuild Navbar with React useState before removing plugin
-- [Phase 01-foundation]: Pinned next@15 instead of @latest which resolved to v16 -- aligns with project decision to avoid v16 async API breaking changes
-- [Phase 01-foundation]: Deleted tailwind.config.js entirely -- Tailwind v4 CSS-first approach replaces JS config
-- [Phase 01-foundation]: Used interim dark body styles (gray-900/gray-100) as placeholder until Phase 2 solarpunk palette
-- [Phase 01-foundation]: Navbar is the only 'use client' component -- all other pages remain server components
-- [Phase 01-foundation]: About/Portfolio pages get minimal Tailwind replacements since they are removed in Phase 2
-- [Phase 03]: Downgraded ESLint 10 to ESLint 9 — eslint-config-next incompatible with ESLint 10 API (addGlobals missing)
-- [Phase 03]: Added TypeScript as dev dep — required peer dependency for eslint-config-next even in JS-only projects
+Recent decisions affecting v2.0:
+- Design tokens (@theme) built before any components — every component depends on them
+- usePathname() isolated to NavLink client component only — Navbar stays Server Component
+- 21st.dev hero: Claude selects component during Phase 5 planning; dependency audit required before pasting
+- Dark/light mode deferred to v2.1 — @custom-variant dark defined in Phase 4 as foundation only
+- Contact page = email + social links, no form backend
+
+04-01 decisions:
+- OKLCH color space used for all palette tokens — perceptually uniform, wide-gamut ready
+- Token prefixes bark/forest/cream/amber-solarpunk chosen to avoid shadowing Tailwind defaults
+- @theme inline (not plain @theme) required for --font-inter (next/font sets it at runtime)
+- SVGs use fill=currentColor with text-cream-100 on parent — avoids brittle hardcoded fill=white
+- amber-solarpunk included proactively — Phase 5 Navbar hover/active states will need it
 
 ### Pending Todos
 
-None yet.
+None.
 
 ### Blockers/Concerns
 
-- 21st.dev hero component not yet chosen by user — Phase 2+ placeholder Home page is intentional; hero integration is deferred to v2
+- [Phase 5] 21st.dev hero component not yet selected — Claude picks during planning; must audit imports before pasting
+- [Phase 6] Rover Team screenshots not yet provided — user has them; needed before Phase 6 can complete
+- [Phase 6] Confirm exact social profile URLs (GitHub: TymurBondar, LinkedIn: /tymurbondar, Telegram: unknown) before building Contact
 
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 03-01-PLAN.md (ESLint 9 Flat Config and Lint Gate) -- Phase 03-launch plan 1 complete
-Resume file: None
+Stopped at: Completed 04-01-PLAN.md
+Resume file: .planning/phases/04-design-system/04-01-SUMMARY.md
+Next action: /gsd:execute-phase 05

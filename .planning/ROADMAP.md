@@ -1,75 +1,86 @@
 # Roadmap: Tymur Bondar — Personal Website
 
-## Overview
+## Milestones
 
-A focused modernization of an existing Next.js 14 portfolio site. The site has the right bones — App Router, Vercel hosting, Tailwind CSS — but carries DaisyUI coupling throughout the component tree and stale content referencing the wrong location and employer history. The work proceeds in three phases: upgrade the stack and remove DaisyUI cleanly (foundation), then restructure and restyle pages with accurate content (pages), then wire up CI/CD and documentation (launch). Each phase delivers a verifiable, deployable state.
+- ✅ **v1.0 MVP** — Phases 1-3 (shipped 2026-03-03)
+- 🚧 **v2.0 Design & Content** — Phases 4-6 (in progress)
 
 ## Phases
 
-**Phase Numbering:**
-- Integer phases (1, 2, 3): Planned milestone work
-- Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
+<details>
+<summary>✅ v1.0 MVP (Phases 1-3) — SHIPPED 2026-03-03</summary>
 
-Decimal phases appear between their surrounding integers in numeric order.
+- [x] Phase 1: Foundation (2/2 plans) — completed 2026-03-03
+- [x] Phase 2: Pages (2/2 plans) — completed 2026-03-03
+- [x] Phase 3: Launch (2/2 plans) — completed 2026-03-03
 
-- [x] **Phase 1: Foundation** - Upgrade to Next.js 15 + Tailwind v4, remove DaisyUI completely, rebuild Navbar with React state
-- [ ] **Phase 2: Pages** - Remove About/Portfolio pages, restyle Home/Footer/Navbar with plain Tailwind, update metadata
-- [ ] **Phase 3: Launch** - Configure ESLint 9 flat config, add GitHub Actions lint gate, update README
+Full details: `.planning/milestones/v1.0-ROADMAP.md`
+
+</details>
+
+### 🚧 v2.0 Design & Content (In Progress)
+
+**Milestone Goal:** Transform the clean v1.0 foundation into a polished multi-page portfolio with solarpunk design system, 21st.dev hero component, career timeline, project showcases, and full content pages.
+
+- [ ] **Phase 4: Design System** - Define solarpunk color palette and typography in Tailwind @theme
+- [ ] **Phase 5: Navigation + Hero** - Multi-page nav with active state and 21st.dev hero on Home
+- [ ] **Phase 6: Content Pages** - About timeline, Portfolio cards, and Contact page
 
 ## Phase Details
 
-### Phase 1: Foundation
-**Goal**: The stack is upgraded and DaisyUI is fully removed — the site runs on Next.js 15 + React 19 + Tailwind v4 with no DaisyUI dependency, and the Navbar mobile menu works via React state
-**Depends on**: Nothing (first phase)
-**Requirements**: STACK-01, STACK-02, STACK-03, STACK-04, STACK-05
+### Phase 4: Design System
+**Goal**: The solarpunk visual identity is defined as reusable Tailwind utilities that every subsequent component can consume in a single pass
+**Depends on**: Phase 3 (v1.0 foundation)
+**Requirements**: DSGN-01, DSGN-03
 **Success Criteria** (what must be TRUE):
-  1. The site builds without errors on Next.js 15 with React 19 and Tailwind v4
-  2. No DaisyUI classes remain in any source file (no `btn`, `navbar`, `dropdown`, `bg-base-`, `menu`, `hero`, `timeline` class names)
-  3. The Navbar mobile menu opens and closes correctly via a click handler (no CSS-only focus tricks)
-  4. The `autoprefixer` package is absent from package.json
-**Plans:** 2 plans
+  1. Tailwind utility classes for solarpunk colors (emerald/forest greens, warm dark background, amber accent) are available throughout the codebase via @theme in globals.css
+  2. Typography scale and spacing tokens are defined in @theme and applied consistently across the existing single-page site
+  3. Existing pages (Home, Navbar, Footer) visually reflect the solarpunk palette — no remaining interim gray-900/gray-* classes from v1.0
+  4. Color tokens are named with unique identifiers (forest, bark, canopy, etc.) that do not shadow Tailwind defaults
+**Plans**: 1 plan
 
 Plans:
-- [x] 01-01-PLAN.md — Stack upgrade: Next.js 15 + React 19 + Tailwind v4 packages and config migration
-- [x] 01-02-PLAN.md — DaisyUI removal: replace all semantic classes with Tailwind utilities, rebuild Navbar with useState
+- [ ] 04-01: Define solarpunk @theme tokens and apply across all pages
 
-### Phase 2: Pages
-**Goal**: The site has a single-page structure with accurate content — About and Portfolio pages are removed, Home and Footer are restyled with plain Tailwind utilities, and page metadata is accurate
-**Depends on**: Phase 1
-**Requirements**: PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, SEO-01
+### Phase 5: Navigation + Hero
+**Goal**: Users can navigate to all four site pages with clear active-state feedback, and the Home page leads with a polished 21st.dev hero component styled to the solarpunk palette
+**Depends on**: Phase 4
+**Requirements**: NAV-01, NAV-02, NAV-03, NAV-04, DSGN-02
 **Success Criteria** (what must be TRUE):
-  1. Navigating to `/about` and `/portfolio` returns 404 (routes no longer exist)
-  2. The Navbar shows no About or Portfolio links
-  3. The Home page renders using only Tailwind utility classes (no DaisyUI semantic classes, no inline styles from the old theme)
-  4. The Footer displays social links (LinkedIn, Telegram, GitHub) styled with plain Tailwind utilities
-  5. The page title and meta description are accurate (not "Generated by create next app") when inspected in browser DevTools
-**Plans:** 2 plans
+  1. Navbar displays Home, About, Portfolio, and Contact links; the active page link is visually distinguished with an emerald green indicator
+  2. Mobile hamburger menu opens and closes with a smooth transition, providing full navigation on small screens
+  3. Navbar sticks to the top of the viewport on scroll with a visible backdrop-blur effect
+  4. Home page displays the 21st.dev hero component styled with solarpunk color tokens — not the v1.0 plain intro text
+  5. usePathname() is isolated to a small NavLink client component; the outer Navbar remains a Server Component
+**Plans**: TBD
 
 Plans:
-- [ ] 02-01-PLAN.md — Route removal: delete About/Portfolio pages, simplify Navbar to name-only Server Component
-- [ ] 02-02-PLAN.md — Content updates: update Home page bio, fix metadata description, verify Footer
+- [ ] 05-01: Update Navbar to multi-page structure with NavLink RSC boundary
+- [ ] 05-02: Integrate 21st.dev hero component on Home page
 
-### Phase 3: Launch
-**Goal**: ESLint 9 is configured with flat config, a GitHub Actions lint gate runs on push to main, and the README documents the project accurately
-**Depends on**: Phase 2
-**Requirements**: CICD-01, CICD-02, DOCS-01
+### Phase 6: Content Pages
+**Goal**: Users can visit About, Portfolio, and Contact pages and find complete, accurate, polished content representing Tymur's career history, projects, and contact information
+**Depends on**: Phase 5
+**Requirements**: PAGE-01, PAGE-02, PAGE-03, CONT-01, CONT-02, CONT-03
 **Success Criteria** (what must be TRUE):
-  1. An `eslint.config.mjs` file exists and `npx eslint .` runs without configuration errors
-  2. Pushing to main triggers the GitHub Actions workflow and the lint job passes in the Actions tab
-  3. The README describes the project, lists the tech stack (Next.js 15, React 19, Tailwind v4), includes setup instructions, and includes deployment info
-**Plans:** 2 plans
+  1. About page displays a vertical career timeline with all four entries (Purdue CS, Binghamton Rover Team, Spelling Bee of Canada internship, IT & Digital Marketing Specialist) including tech tags per entry
+  2. Portfolio page shows three project cards in a responsive grid — Rover Team (with YOLOv5 images via next/image), Spelling Bee of Canada (with link to spellingbeeofcanada.ca), and this personal website — with no cumulative layout shift from images
+  3. Contact page displays a styled email address and labeled social links (LinkedIn, Telegram, GitHub) with no form or backend dependency
+  4. All three pages are reachable via the Navbar and render correctly on mobile and desktop
+**Plans**: TBD
 
 Plans:
-- [ ] 03-01-PLAN.md — ESLint 9 flat config setup and GitHub Actions lint workflow
-- [ ] 03-02-PLAN.md — Replace README boilerplate with project-specific documentation
+- [ ] 06-01: Build About page with vertical career timeline
+- [ ] 06-02: Build Portfolio page with three project cards
+- [ ] 06-03: Build Contact page with email and social links
 
 ## Progress
 
-**Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3
-
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation | 2/2 | Complete | 2026-03-03 |
-| 2. Pages | 0/2 | Not started | - |
-| 3. Launch | 0/2 | Not started | - |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation | v1.0 | 2/2 | Complete | 2026-03-03 |
+| 2. Pages | v1.0 | 2/2 | Complete | 2026-03-03 |
+| 3. Launch | v1.0 | 2/2 | Complete | 2026-03-03 |
+| 4. Design System | v2.0 | 0/1 | Not started | - |
+| 5. Navigation + Hero | v2.0 | 0/2 | Not started | - |
+| 6. Content Pages | v2.0 | 0/3 | Not started | - |
