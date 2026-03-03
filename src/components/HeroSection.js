@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 
 const containerVariants = {
@@ -63,66 +64,88 @@ function AnimatedWords({ text, className, style }) {
 export default function HeroSection() {
   return (
     <section className="flex items-center justify-center min-h-[80vh] px-6">
-      <motion.div
-        className="max-w-3xl w-full"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Name */}
-        <div className="overflow-hidden pb-2">
-          <AnimatedWords
-            text="Tymur Bondar"
-            className="block text-5xl sm:text-6xl lg:text-7xl text-cream-100"
-            style={{
-              fontWeight: "var(--font-weight-display)",
-              letterSpacing: "var(--tracking-display)",
-            }}
-          />
-        </div>
-
-        {/* Tagline */}
-        <motion.div className="mt-4 overflow-hidden" variants={fadeUpVariants}>
-          <span className="text-xl sm:text-2xl text-forest-400 font-semibold tracking-tight">
-            Software Engineer & AI Enthusiast
-          </span>
-        </motion.div>
-
-        {/* Description */}
-        <motion.p
-          className="mt-6 text-lg text-cream-200 leading-relaxed max-w-lg"
-          variants={fadeUpVariants}
-        >
-          Developer based in Toronto. CS student at Purdue, passionate about
-          building intelligent systems at the intersection of software
-          engineering and artificial intelligence.
-        </motion.p>
-
-        {/* CTA Buttons */}
+      <div className="max-w-5xl w-full flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+        {/* Text content */}
         <motion.div
-          className="mt-10 flex flex-wrap gap-4"
-          variants={ctaContainerVariants}
+          className="flex-1"
+          variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          <motion.div variants={fadeUpVariants}>
-            <Link
-              href="/portfolio"
-              className="inline-block bg-forest-600 hover:bg-forest-500 text-cream-100 px-6 py-3 rounded-lg font-semibold transition-colors"
-            >
-              View Portfolio
-            </Link>
+          {/* Name */}
+          <div className="overflow-hidden pb-2">
+            <AnimatedWords
+              text="Tymur Bondar"
+              className="block text-5xl sm:text-6xl lg:text-7xl text-cream-100"
+              style={{
+                fontWeight: "var(--font-weight-display)",
+                letterSpacing: "var(--tracking-display)",
+              }}
+            />
+          </div>
+
+          {/* Tagline — glass pill */}
+          <motion.div className="mt-5" variants={fadeUpVariants}>
+            <span className="inline-block text-xl sm:text-2xl text-forest-400 font-semibold tracking-tight backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] rounded-xl px-5 py-2 shadow-[0_0_20px_rgba(255,255,255,0.03)]">
+              Software Engineer & AI Enthusiast
+            </span>
           </motion.div>
-          <motion.div variants={fadeUpVariants}>
-            <Link
-              href="/contact"
-              className="inline-block border border-cream-200 text-cream-200 hover:text-cream-100 hover:border-cream-100 px-6 py-3 rounded-lg font-semibold transition-colors"
-            >
-              Get in Touch
-            </Link>
+
+          {/* Description — glass card */}
+          <motion.div
+            className="mt-6 backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] rounded-xl px-5 py-4 max-w-lg shadow-[0_0_20px_rgba(255,255,255,0.03)]"
+            variants={fadeUpVariants}
+          >
+            <p className="text-lg text-cream-200 leading-relaxed">
+              Developer based in Toronto. CS student at Purdue, passionate about
+              building intelligent systems at the intersection of software
+              engineering and artificial intelligence.
+            </p>
+          </motion.div>
+
+          {/* CTA Buttons — glass */}
+          <motion.div
+            className="mt-10 flex flex-wrap gap-4"
+            variants={ctaContainerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={fadeUpVariants}>
+              <Link
+                href="/portfolio"
+                className="inline-block backdrop-blur-xl bg-forest-600/60 border border-forest-400/20 hover:bg-forest-500/70 hover:border-forest-400/30 text-cream-100 px-6 py-3 rounded-xl font-semibold transition-all shadow-[0_0_24px_rgba(98,160,100,0.15)] hover:shadow-[0_0_32px_rgba(98,160,100,0.25)]"
+              >
+                View Portfolio
+              </Link>
+            </motion.div>
+            <motion.div variants={fadeUpVariants}>
+              <Link
+                href="/contact"
+                className="inline-block backdrop-blur-xl bg-white/[0.04] border border-white/[0.12] hover:bg-white/[0.08] hover:border-white/[0.2] text-cream-200 hover:text-cream-100 px-6 py-3 rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(255,255,255,0.03)] hover:shadow-[0_0_24px_rgba(255,255,255,0.06)]"
+              >
+                Get in Touch
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
-      </motion.div>
+
+        {/* Photo — glass frame */}
+        <motion.div
+          className="flex-shrink-0 backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] rounded-2xl p-3 shadow-[0_0_30px_rgba(255,255,255,0.04)]"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", damping: 20, stiffness: 80, delay: 0.3 }}
+        >
+          <Image
+            src="/hero-photo.jpg"
+            alt="Tymur Bondar"
+            width={340}
+            height={420}
+            priority
+            className="rounded-xl object-cover w-[254px] h-[314px] sm:w-[294px] sm:h-[364px] lg:w-[334px] lg:h-[414px]"
+          />
+        </motion.div>
+      </div>
     </section>
   );
 }
