@@ -12,7 +12,7 @@ A focused modernization of an existing Next.js 14 portfolio site. The site has t
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Upgrade to Next.js 15 + Tailwind v4, remove DaisyUI completely, rebuild Navbar with React state
+- [x] **Phase 1: Foundation** - Upgrade to Next.js 15 + Tailwind v4, remove DaisyUI completely, rebuild Navbar with React state
 - [ ] **Phase 2: Pages** - Remove About/Portfolio pages, restyle Home/Footer/Navbar with plain Tailwind, update metadata
 - [ ] **Phase 3: Launch** - Configure ESLint 9 flat config, add GitHub Actions lint gate, update README
 
@@ -30,8 +30,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Stack upgrade: Next.js 15 + React 19 + Tailwind v4 packages and config migration
-- [ ] 01-02-PLAN.md — DaisyUI removal: replace all semantic classes with Tailwind utilities, rebuild Navbar with useState
+- [x] 01-01-PLAN.md — Stack upgrade: Next.js 15 + React 19 + Tailwind v4 packages and config migration
+- [x] 01-02-PLAN.md — DaisyUI removal: replace all semantic classes with Tailwind utilities, rebuild Navbar with useState
 
 ### Phase 2: Pages
 **Goal**: The site has a single-page structure with accurate content — About and Portfolio pages are removed, Home and Footer are restyled with plain Tailwind utilities, and page metadata is accurate
@@ -62,6 +62,6 @@ Phases execute in numeric order: 1 → 2 → 3
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/2 | Not started | - |
+| 1. Foundation | 2/2 | Complete | 2026-03-03 |
 | 2. Pages | 0/TBD | Not started | - |
 | 3. Launch | 0/TBD | Not started | - |
