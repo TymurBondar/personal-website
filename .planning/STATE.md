@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Design & Content
-status: unknown
-last_updated: "2026-03-04T22:28:37.227Z"
+status: complete
+last_updated: "2026-03-04T22:29:54Z"
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 6
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** A clean, polished site that accurately represents who Tymur is as a software engineer
-**Current focus:** v2.0 Design & Content — Phase 6 Plan 01 complete, ready for Phase 6 Plan 02
+**Current focus:** v2.0 Design & Content — Phase 6 COMPLETE (all 3 content pages built)
 
 ## Current Position
 
-Phase: 6 of 6 (Content Pages) — IN PROGRESS
-Plan: 1 of 3 in current phase (COMPLETE)
-Status: Phase 6 Plan 01 complete — About page with career timeline built
-Last activity: 2026-03-04 — Phase 6 Plan 01: About page with animated vertical career timeline
+Phase: 6 of 6 (Content Pages) — COMPLETE
+Plan: 3 of 3 in current phase (COMPLETE)
+Status: Phase 6 complete — About, Portfolio, and Contact pages built
+Last activity: 2026-03-04 — Phase 6 Plan 03: Contact page with email + social links
 
-Progress: [████████░░] 75%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -43,6 +43,8 @@ Progress: [████████░░] 75%
 | 05-navigation-hero | 05-01 | 1min | 2 | 6 |
 | 05-navigation-hero | 05-02 | 8min | 3 | 4 |
 | 06-content-pages | 06-01 | 2min | 2 | 2 |
+| 06-content-pages | 06-02 | 4min | 2 | 2 |
+| 06-content-pages | 06-03 | 2min | 2 | 1 |
 
 ## Accumulated Context
 
@@ -80,6 +82,13 @@ Recent decisions affecting v2.0:
 - Timeline.js is the sole Client Component — About page.js is a Server Component (no use client)
 - slide-in-from-left (x: -20) animation used for timeline items to match vertical list flow
 - motion custom prop used for staggered delay instead of staggerChildren — correct for whileInView items
+- [Phase 06-content-pages]: Reused SVG markup from Footer.js for contact page icons - no new icon library dependency
+- [Phase 06-content-pages]: Contact page is pure Server Component with zero client JavaScript shipped (120B route)
+
+06-02 decisions:
+- Explicit width=600 height=338 on next/image (not fill prop) to eliminate cumulative layout shift
+- Rover Team image=null — user screenshots not provided; ProjectCard renders styled placeholder
+- Portfolio page stays Server Component; ProjectCard is the sole 'use client' for motion interactivity
 
 ### Pending Todos
 
@@ -87,12 +96,11 @@ None.
 
 ### Blockers/Concerns
 
-- [Phase 6] Rover Team screenshots not yet provided — user has them; needed before Phase 6 can complete
-- [Phase 6] Confirm exact social profile URLs (GitHub: TymurBondar, LinkedIn: /tymurbondar, Telegram: unknown) before building Contact
+None — Phase 6 is complete. Rover Team screenshots were deferred (portfolio page renders gracefully without images).
 
 ## Session Continuity
 
 Last session: 2026-03-04
-Stopped at: Phase 6 Plan 01 complete
-Resume file: .planning/phases/06-content-pages/06-01-SUMMARY.md
-Next action: Execute Phase 6 Plan 02 (Portfolio page)
+Stopped at: Completed 06-03-PLAN.md (Phase 6 complete)
+Resume file: .planning/phases/06-content-pages/06-03-SUMMARY.md
+Next action: v2.0 milestone complete — ready for deployment or v2.1 planning

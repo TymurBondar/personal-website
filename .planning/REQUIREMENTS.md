@@ -10,7 +10,7 @@ Requirements for the design and content release. Solarpunk visual identity + mul
 ### Design System
 
 - [x] **DSGN-01**: Define solarpunk color palette in Tailwind @theme block (emerald/forest greens, warm dark background, amber accent, OKLCH tokens)
-- [ ] **DSGN-02**: Integrate 21st.dev hero component on Home page with solarpunk styling
+- [x] **DSGN-02**: Integrate 21st.dev hero component on Home page with solarpunk styling
 - [x] **DSGN-03**: Define typography scale and spacing tokens in @theme block
 
 ### Navigation
@@ -22,15 +22,15 @@ Requirements for the design and content release. Solarpunk visual identity + mul
 
 ### Pages
 
-- [ ] **PAGE-01**: About page with vertical career timeline (Purdue, Binghamton Rover Team, Spelling Bee of Canada internship, IT & Digital Marketing Specialist role)
-- [ ] **PAGE-02**: Portfolio page with 3 project cards in responsive grid (Rover Team, Spelling Bee of Canada, this personal website)
-- [ ] **PAGE-03**: Contact page with styled email address and social links (LinkedIn, Telegram, GitHub)
+- [x] **PAGE-01**: About page with vertical career timeline (Purdue, Binghamton Rover Team, Spelling Bee of Canada internship, IT & Digital Marketing Specialist role)
+- [x] **PAGE-02**: Portfolio page with 3 project cards in responsive grid (Rover Team, Spelling Bee of Canada, this personal website)
+- [x] **PAGE-03**: Contact page with styled email address and social links (LinkedIn, Telegram, GitHub)
 
 ### Content
 
-- [ ] **CONT-01**: Rover Team project card with YOLOv5 object recognition description and images
-- [ ] **CONT-02**: Spelling Bee of Canada project card with link to spellingbeeofcanada.ca
-- [ ] **CONT-03**: Personal website project card showcasing Next.js 15 + React 19 + Tailwind v4 tech stack
+- [x] **CONT-01**: Rover Team project card with YOLOv5 object recognition description and images
+- [x] **CONT-02**: Spelling Bee of Canada project card with link to spellingbeeofcanada.ca
+- [x] **CONT-03**: Personal website project card showcasing Next.js 15 + React 19 + Tailwind v4 tech stack
 
 ## v2.1 Requirements
 
@@ -76,13 +76,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NAV-02 | Phase 5 | Complete |
 | NAV-03 | Phase 5 | Complete |
 | NAV-04 | Phase 5 | Complete |
-| DSGN-02 | Phase 5 | Pending |
-| PAGE-01 | Phase 6 | Pending |
-| PAGE-02 | Phase 6 | Pending |
-| PAGE-03 | Phase 6 | Pending |
-| CONT-01 | Phase 6 | Pending |
-| CONT-02 | Phase 6 | Pending |
-| CONT-03 | Phase 6 | Pending |
+| DSGN-02 | Phase 5 | Complete |
+| PAGE-01 | Phase 6 | Complete |
+| PAGE-02 | Phase 6 | Complete |
+| PAGE-03 | Phase 6 | Complete |
+| CONT-01 | Phase 6 | Complete |
+| CONT-02 | Phase 6 | Complete |
+| CONT-03 | Phase 6 | Complete |
 
 **Coverage:**
 - v2.0 requirements: 13 total

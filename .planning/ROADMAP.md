@@ -24,7 +24,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 
 - [x] **Phase 4: Design System** - Define solarpunk color palette and typography in Tailwind @theme (completed 2026-03-03)
 - [x] **Phase 5: Navigation + Hero** - Multi-page nav with active state and 21st.dev hero on Home (completed 2026-03-03)
-- [ ] **Phase 6: Content Pages** - About timeline, Portfolio cards, and Contact page
+- [x] **Phase 6: Content Pages** - About timeline, Portfolio cards, and Contact page (completed 2026-03-04)
 
 ## Phase Details
 
@@ -83,4 +83,4 @@ Plans:
 | 3. Launch | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 4. Design System | v2.0 | Complete    | 2026-03-03 | - |
 | 5. Navigation + Hero | v2.0 | Complete    | 2026-03-03 | - |
-| 6. Content Pages | 1/3 | In Progress|  | - |
+| 6. Content Pages | 3/3 | Complete   | 2026-03-04 | - |
