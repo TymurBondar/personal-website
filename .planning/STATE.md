@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Design & Content
-status: in-progress
-last_updated: "2026-03-03T19:18:00Z"
+status: unknown
+last_updated: "2026-03-04T22:28:37.227Z"
 progress:
   total_phases: 3
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 6
-  completed_plans: 2
+  completed_plans: 4
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-03)
 
 **Core value:** A clean, polished site that accurately represents who Tymur is as a software engineer
-**Current focus:** v2.0 Design & Content — Phase 5: Navigation + Hero
+**Current focus:** v2.0 Design & Content — Phase 6 Plan 01 complete, ready for Phase 6 Plan 02
 
 ## Current Position
 
-Phase: 5 of 6 (Navigation + Hero)
-Plan: 1 of 2 in current phase (COMPLETE)
-Status: Plan 05-01 complete — ready for Plan 05-02
-Last activity: 2026-03-03 — Plan 05-01 complete: multi-page navbar with NavLink RSC boundary, mobile menu, sticky blur, stub pages
+Phase: 6 of 6 (Content Pages) — IN PROGRESS
+Plan: 1 of 3 in current phase (COMPLETE)
+Status: Phase 6 Plan 01 complete — About page with career timeline built
+Last activity: 2026-03-04 — Phase 6 Plan 01: About page with animated vertical career timeline
 
-Progress: [████░░░░░░] 33%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -41,6 +41,8 @@ Progress: [████░░░░░░] 33%
 |-------|------|----------|-------|-------|
 | 04-design-system | 04-01 | 2min | 2 | 5 |
 | 05-navigation-hero | 05-01 | 1min | 2 | 6 |
+| 05-navigation-hero | 05-02 | 8min | 3 | 4 |
+| 06-content-pages | 06-01 | 2min | 2 | 2 |
 
 ## Accumulated Context
 
@@ -68,19 +70,29 @@ Recent decisions affecting v2.0:
 - CSS-only hamburger animation with three span transforms — no framer-motion for nav
 - pointer-events-none on closed mobile dropdown — prevents invisible click interception
 
+05-02 decisions:
+- Built HeroSection with motion/react stagger directly (21st.dev MCP tool unavailable in executor)
+- User overrode text-only plan: added hero-photo.jpg in side-by-side layout
+- Liquid glass UI pattern: backdrop-blur-xl bg-white/[0.04] border-white/[0.08] — applied to tagline, description, CTAs, photo frame
+- motion v12.34.5 imported from "motion/react" (not framer-motion) for React 19 compatibility
+
+06-01 decisions:
+- Timeline.js is the sole Client Component — About page.js is a Server Component (no use client)
+- slide-in-from-left (x: -20) animation used for timeline items to match vertical list flow
+- motion custom prop used for staggered delay instead of staggerChildren — correct for whileInView items
+
 ### Pending Todos
 
 None.
 
 ### Blockers/Concerns
 
-- [Phase 5] 21st.dev hero component not yet selected — Claude picks during planning; must audit imports before pasting
 - [Phase 6] Rover Team screenshots not yet provided — user has them; needed before Phase 6 can complete
 - [Phase 6] Confirm exact social profile URLs (GitHub: TymurBondar, LinkedIn: /tymurbondar, Telegram: unknown) before building Contact
 
 ## Session Continuity
 
-Last session: 2026-03-03
-Stopped at: Completed 05-01-PLAN.md
-Resume file: .planning/phases/05-navigation-hero/05-01-SUMMARY.md
-Next action: Execute 05-02-PLAN.md (21st.dev hero component)
+Last session: 2026-03-04
+Stopped at: Phase 6 Plan 01 complete
+Resume file: .planning/phases/06-content-pages/06-01-SUMMARY.md
+Next action: Execute Phase 6 Plan 02 (Portfolio page)

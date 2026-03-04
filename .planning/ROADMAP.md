@@ -23,7 +23,7 @@ Full details: `.planning/milestones/v1.0-ROADMAP.md`
 **Milestone Goal:** Transform the clean v1.0 foundation into a polished multi-page portfolio with solarpunk design system, 21st.dev hero component, career timeline, project showcases, and full content pages.
 
 - [x] **Phase 4: Design System** - Define solarpunk color palette and typography in Tailwind @theme (completed 2026-03-03)
-- [ ] **Phase 5: Navigation + Hero** - Multi-page nav with active state and 21st.dev hero on Home
+- [x] **Phase 5: Navigation + Hero** - Multi-page nav with active state and 21st.dev hero on Home (completed 2026-03-03)
 - [ ] **Phase 6: Content Pages** - About timeline, Portfolio cards, and Contact page
 
 ## Phase Details
@@ -67,12 +67,12 @@ Plans:
   2. Portfolio page shows three project cards in a responsive grid — Rover Team (with YOLOv5 images via next/image), Spelling Bee of Canada (with link to spellingbeeofcanada.ca), and this personal website — with no cumulative layout shift from images
   3. Contact page displays a styled email address and labeled social links (LinkedIn, Telegram, GitHub) with no form or backend dependency
   4. All three pages are reachable via the Navbar and render correctly on mobile and desktop
-**Plans**: TBD
+**Plans**: 3 plans (Wave 1 parallel)
 
 Plans:
-- [ ] 06-01: Build About page with vertical career timeline
-- [ ] 06-02: Build Portfolio page with three project cards
-- [ ] 06-03: Build Contact page with email and social links
+- [ ] 06-01-PLAN.md — About page with vertical career timeline and scroll animations
+- [ ] 06-02-PLAN.md — Portfolio page with three project cards in responsive grid
+- [ ] 06-03-PLAN.md — Contact page with email display and social links
 
 ## Progress
 
@@ -82,5 +82,5 @@ Plans:
 | 2. Pages | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 3. Launch | v1.0 | 2/2 | Complete | 2026-03-03 |
 | 4. Design System | v2.0 | Complete    | 2026-03-03 | - |
-| 5. Navigation + Hero | v2.0 | 1/2 | In progress | - |
-| 6. Content Pages | v2.0 | 0/3 | Not started | - |
+| 5. Navigation + Hero | v2.0 | Complete    | 2026-03-03 | - |
+| 6. Content Pages | 1/3 | In Progress|  | - |
