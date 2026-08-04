@@ -54,7 +54,7 @@
 				`Name: ${v("name")}`,
 				`Email: ${v("email")}`,
 				`Business: ${v("business")}`,
-				`How did you hear about us: ${v("source")}`,
+				`How did you hear about me: ${v("source")}`,
 				"",
 				v("message"),
 			].join("\n");
