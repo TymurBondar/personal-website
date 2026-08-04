@@ -1,31 +1,32 @@
-# Tymur Bondar — Personal Website
+# tymurbondar.com
 
-Personal portfolio site built with Next.js 15, React 19, and Tailwind CSS v4.
+Personal portfolio of Tymur Bondar — software engineer & AI enthusiast.
 
-## Tech Stack
+Built in the **Swiss International Typographic Style** (SCHRIFT design system):
+strict black / white / `#FF3000` palette, visible grid, massive uppercase
+typography, no rounded corners, no shadows, no gradients.
 
-- [Next.js 15](https://nextjs.org/) — React framework
-- [React 19](https://react.dev/) — UI library
-- [Tailwind CSS v4](https://tailwindcss.com/) — Utility-first CSS
+## Stack
 
-## Getting Started
+- Plain HTML + CSS + vanilla JS — no framework, no build step, zero dependencies.
+- Inter vendored locally (`assets/fonts/`) — the site runs fully offline.
+- Deployed on Vercel as a static site (`vercel.json` enables clean URLs).
 
-```bash
-git clone git@github.com:TymurBondar/personal-website.git
-cd personal-website
-yarn install
-yarn dev
+## Structure
+
+```
+index.html          single-page site (hero / about / portfolio / contact)
+assets/styles.css   design tokens + all component styles
+assets/app.js       mobile drawer, scroll reveal
+assets/fonts/       Inter 400/500/700/900 (woff2)
+assets/noise.svg    paper-grain texture
+hero-photo.jpg      hero portrait
 ```
 
-Open http://localhost:3000 to view in browser.
+## Develop
 
-## Scripts
+No tooling required — open `index.html` directly, or serve the folder:
 
-- `yarn dev` — Start development server
-- `yarn build` — Create production build
-- `yarn start` — Start production server
-- `yarn lint` — Run ESLint
-
-## Deployment
-
-Deployed on [Vercel](https://vercel.com). Push to `main` triggers automatic deployment.
+```
+python -m http.server 8000
+```
