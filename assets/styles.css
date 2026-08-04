@@ -611,8 +611,9 @@ main {
 	}
 }
 .project {
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	grid-row: span 2;
+	grid-template-rows: subgrid;
 	background: var(--background);
 	border-top: var(--border-thin) solid var(--foreground);
 }
@@ -711,14 +712,10 @@ main {
 	.project--cta {
 		grid-column: 1 / -1;
 	}
-	/* spanning cell: let the stage flex instead of forcing 4:3 */
+	/* spanning cell: the subgrid row sets the height, not a 4:3 ratio */
 	.project--cta .project__stage {
 		aspect-ratio: auto;
-		flex: 1;
 		min-height: 180px;
-	}
-	.project--cta .project__body {
-		flex: none;
 	}
 }
 @media (min-width: 1024px) {
