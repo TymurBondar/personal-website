@@ -42,6 +42,30 @@
 		revealed.forEach((el) => el.classList.add("is-in"));
 	}
 
+	/* Contact form: composes an email in the visitor's mail client.
+	   No backend needed; the "How did you hear about us?" answer rides along. */
+	const form = document.getElementById("contact-form");
+	if (form) {
+		form.addEventListener("submit", (e) => {
+			e.preventDefault();
+			const v = (name) => (form.elements[name] ? form.elements[name].value.trim() : "");
+			const subject = `Website inquiry from ${v("name")}`;
+			const body = [
+				`Name: ${v("name")}`,
+				`Email: ${v("email")}`,
+				`Business: ${v("business")}`,
+				`How did you hear about us: ${v("source")}`,
+				"",
+				v("message"),
+			].join("\n");
+			window.location.href =
+				"mailto:tymurbondar@outlook.com?subject=" +
+				encodeURIComponent(subject) +
+				"&body=" +
+				encodeURIComponent(body);
+		});
+	}
+
 	/* Copyright year */
 	const year = document.getElementById("year");
 	if (year) year.textContent = String(new Date().getFullYear());
