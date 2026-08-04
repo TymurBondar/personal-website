@@ -678,8 +678,8 @@ main {
 }
 .project__stage--shot .project__num {
 	position: absolute;
-	left: 0;
-	bottom: 0;
+	left: clamp(18px, 2.5vw, 32px);
+	bottom: clamp(18px, 2.5vw, 32px);
 	font-size: 0.8125rem;
 	color: #fff;
 	background: var(--foreground);
@@ -722,8 +722,8 @@ main {
 }
 .project__stage--empty .project__num {
 	position: absolute;
-	left: 0;
-	bottom: 0;
+	left: clamp(18px, 2.5vw, 32px);
+	bottom: clamp(18px, 2.5vw, 32px);
 	font-size: 0.8125rem;
 	color: #fff;
 	background: var(--accent);
