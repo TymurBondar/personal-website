@@ -656,6 +656,38 @@ main {
 .project:hover .project__num {
 	transform: scale(1.05);
 }
+
+/* Stage with a live-site screenshot: image fills, number becomes a badge */
+.project__stage--shot {
+	position: relative;
+	overflow: hidden;
+}
+.project__shot {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: top;
+	transition: transform var(--dur) var(--ease);
+}
+.project:hover .project__shot {
+	transform: scale(1.03);
+}
+.project__stage--shot .project__num {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-size: 0.8125rem;
+	color: #fff;
+	background: var(--foreground);
+	padding: 6px 14px;
+	letter-spacing: 0.1em;
+}
+.project:hover .project__stage--shot .project__num {
+	transform: none;
+	background: var(--accent);
+}
 .project__body {
 	padding: 24px var(--gutter);
 	display: flex;
