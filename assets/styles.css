@@ -603,6 +603,8 @@ main {
 .projects {
 	display: grid;
 	grid-template-columns: 1fr;
+	margin-top: calc(-1 * var(--border-thin));
+	margin-left: calc(-1 * var(--border-thin));
 }
 @media (min-width: 720px) {
 	.projects {
@@ -614,34 +616,17 @@ main {
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
+/* Every cell carries identical top+left borders; the grid is pulled up
+   and left one border-width so the outer edges vanish. Identical cell
+   widths keep the 4:3 stage heights identical, so the internal divider
+   crosses stay flush at every column count. */
 .project {
 	display: grid;
 	grid-row: span 2;
 	grid-template-rows: subgrid;
 	background: var(--background);
 	border-top: var(--border-thin) solid var(--foreground);
-}
-.project:first-child {
-	border-top: none;
-}
-@media (min-width: 720px) {
-	.project:nth-child(-n + 2) {
-		border-top: none;
-	}
-	.project:nth-child(2n) {
-		border-left: var(--border-thin) solid var(--foreground);
-	}
-}
-@media (min-width: 1024px) {
-	.project {
-		border-left: var(--border-thin) solid var(--foreground);
-	}
-	.project:nth-child(3n + 1) {
-		border-left: none;
-	}
-	.project:nth-child(-n + 3) {
-		border-top: none;
-	}
+	border-left: var(--border-thin) solid var(--foreground);
 }
 .project__stage {
 	aspect-ratio: 4 / 3;
