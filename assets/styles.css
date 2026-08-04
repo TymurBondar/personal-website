@@ -690,6 +690,47 @@ main {
 	transform: none;
 	background: var(--accent);
 }
+
+/* CTA stage: an empty frame with the same mat geometry — the vacant slot */
+.project__stage--empty {
+	position: relative;
+}
+.project__empty-frame {
+	position: absolute;
+	inset: clamp(18px, 2.5vw, 32px);
+	border: var(--border-thin) solid #fff;
+	display: grid;
+	place-items: center;
+	transition: border-color var(--dur-fast) var(--ease);
+}
+.project__empty-frame span {
+	font-size: var(--text-xs);
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.22em;
+	color: rgba(255, 255, 255, 0.55);
+	transition: color var(--dur-fast) var(--ease);
+}
+.project--cta:hover .project__empty-frame {
+	border-color: var(--accent);
+}
+.project--cta:hover .project__empty-frame span {
+	color: #fff;
+}
+.project__stage--empty .project__num {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	font-size: 0.8125rem;
+	color: #fff;
+	background: var(--accent);
+	padding: 6px 14px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+.project:hover .project__stage--empty .project__num {
+	transform: none;
+}
 .project__body {
 	padding: 24px var(--gutter);
 	display: flex;
