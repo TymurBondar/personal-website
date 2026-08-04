@@ -657,22 +657,24 @@ main {
 	transform: scale(1.05);
 }
 
-/* Stage with a live-site screenshot: image fills, number becomes a badge */
+/* Stage with a live-site screenshot, matted like a mounted print:
+   the muted dotted surface stays visible as a frame around the image. */
 .project__stage--shot {
 	position: relative;
 	overflow: hidden;
 }
 .project__shot {
 	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
+	inset: clamp(18px, 2.5vw, 32px);
+	width: calc(100% - 2 * clamp(18px, 2.5vw, 32px));
+	height: calc(100% - 2 * clamp(18px, 2.5vw, 32px));
 	object-fit: cover;
 	object-position: top;
-	transition: transform var(--dur) var(--ease);
+	border: var(--border-thin) solid var(--foreground);
+	transition: border-color var(--dur-fast) var(--ease);
 }
 .project:hover .project__shot {
-	transform: scale(1.03);
+	border-color: var(--accent);
 }
 .project__stage--shot .project__num {
 	position: absolute;
