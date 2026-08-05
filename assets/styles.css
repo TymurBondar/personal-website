@@ -401,6 +401,10 @@ main {
 .hero__main {
 	position: relative;
 	min-width: 0;
+	/* Query container so the headline is sized against this column, not the
+	   viewport. From 1024px up the column is only 7/12 of the screen, and a
+	   viewport-relative headline overflows it. */
+	container-type: inline-size;
 	padding: clamp(3rem, 7vw, 4.5rem) var(--gutter) clamp(2.5rem, 6vw, 4rem);
 	display: flex;
 	flex-direction: column;
@@ -423,8 +427,12 @@ main {
 .hero__main .eyebrow {
 	margin-bottom: 24px;
 }
+/* "THAT MAKE" is the widest line at 5.97em in Inter Black with -0.03em tracking,
+   so the type may not exceed 16.75% of the column. 16cqi keeps a little slack;
+   the vw line is the fallback for browsers without container units. */
 .hero__title {
-	font-size: clamp(3rem, 12vw, 8rem);
+	font-size: clamp(2.5rem, 14vw, 8rem);
+	font-size: clamp(2.5rem, 16cqi, 8rem);
 	font-weight: 900;
 	line-height: 0.92;
 	letter-spacing: -0.03em;
@@ -445,25 +453,37 @@ main {
 	gap: 12px;
 	margin-top: 40px;
 }
+/* Stacked under the copy, the panel was a flat 320px band at any width, so by
+   the 1024px breakpoint it had become a 3:1 letterbox with the head cropped off.
+   Growing the height with the viewport holds the frame near 1.6:1 instead.
+   This has to be a definite height, not aspect-ratio + min-height: once
+   min-height binds, aspect-ratio resolves the *width* from it and the panel
+   overflows every phone narrower than 427px. */
 .hero__photo {
 	position: relative;
-	min-height: 320px;
+	height: clamp(320px, min(62vw, 70vh), 560px);
 	background: var(--muted);
 	border-top: var(--border-thick) solid var(--foreground);
 }
 @media (min-width: 1024px) {
 	.hero__photo {
+		height: auto; /* beside the copy, the grid row sets the height */
 		border-top: none;
 		border-left: var(--border-thick) solid var(--foreground);
 		min-height: 520px;
 	}
 }
+/* The source is 1:1 with the head high and left of centre (top of hair at 21%,
+   eyes at 33%, face axis at 34%). Anchoring the crop there keeps the face framed
+   whether the panel lands wide and short (phones, 4K) or narrow and tall
+   (1024–1440 desktop), instead of the default 50% 50% slicing the head off. */
 .hero__photo img {
 	position: absolute;
 	inset: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	object-position: 30% 27%;
 }
 .hero__geo {
 	position: absolute;
