@@ -1,32 +1,43 @@
 # tymurbondar.com
 
-Personal portfolio of Tymur Bondar — software engineer & AI enthusiast.
+A shelf of small apps by Tymur Bondar. Each app lives at its own subdomain
+(`name.tymurbondar.com`) as its own project; this repo is only the index page.
 
-Built in the **Swiss International Typographic Style** (SCHRIFT design system):
-strict black / white / `#FF3000` palette, visible grid, massive uppercase
-typography, no rounded corners, no shadows, no gradients.
+Built on the **BONDAR design system**: white paper on a grey table, one deep
+green band, ruled registers instead of cards, EB Garamond and Barlow, brass
+only in the double rule. No rounded corners, no shadows, no motion.
 
 ## Stack
 
-- Plain HTML + CSS + vanilla JS — no framework, no build step, zero dependencies.
-- Inter vendored locally (`assets/fonts/`) — the site runs fully offline.
+- Plain HTML + CSS — no framework, no build step, no JavaScript, zero dependencies.
+- EB Garamond and Barlow vendored locally (`assets/fonts/`).
 - Deployed on Vercel as a static site (`vercel.json` enables clean URLs).
 
 ## Structure
 
 ```
-index.html          single-page site (hero / about / portfolio / contact)
-assets/styles.css   design tokens + all component styles
-assets/app.js       mobile drawer, scroll reveal
-assets/fonts/       Inter 400/500/700/900 (woff2)
-assets/noise.svg    paper-grain texture
-hero-photo.jpg      hero portrait
+index.html            the page (headline / apps register / about / contact)
+assets/styles.css     BONDAR tokens, the bd- components used, site- layout
+assets/fonts/         EB Garamond (variable, roman + italic), Barlow 400/500/600
+assets/portrait.jpg   about photo
+archive/v1/           the previous Swiss-style site, self-contained, noindex
 ```
+
+## Add an app
+
+In `index.html`, find the `TO ADD AN APP` comment inside the register, copy the
+row template, and fill in the number, name, subdomain, one-line description
+and year. Delete the empty-shelf row when the first app goes in.
+
+## Archive
+
+The previous site ("Websites that make money") is tagged `v1-swiss` and served
+unlinked at `/archive/v1`.
 
 ## Develop
 
-No tooling required — open `index.html` directly, or serve the folder:
+No tooling required — serve the folder:
 
 ```
-python -m http.server 8000
+python3 -m http.server 8000
 ```

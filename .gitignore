@@ -7,3 +7,9 @@ Thumbs.db
 
 .vercel
 .env*
+
+# local leftovers
+node_modules
+.next
+.claude
+.playwright-mcp
