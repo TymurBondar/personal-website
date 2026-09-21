@@ -129,7 +129,6 @@ a:focus-visible { outline: var(--line-thick) solid var(--focus); outline-offset:
 .site-apps th[scope="row"] { color: var(--note); font-variant-numeric: tabular-nums lining-nums; }
 .site-app-name { display: block; font: 600 17px/24px var(--font-sans); }
 .site-app-host { display: block; color: var(--note); }
-.bd-register td.site-apps-empty { padding: var(--space-12) 0; text-align: center; }
 
 .site-about { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: var(--space-6) var(--space-12); align-items: start; }
 .site-portrait { width: 160px; height: 160px; object-fit: cover; object-position: 35% 30%; border: var(--line-hair) solid var(--rule); }
@@ -164,5 +163,4 @@ a:focus-visible { outline: var(--line-thick) solid var(--focus); outline-offset:
   .site-apps tbody th, .site-apps tbody td { padding: 0; border-bottom: 0; grid-column: 2; text-align: left; }
   .site-apps tbody th[scope="row"] { grid-column: 1; grid-row: 1 / span 3; }
   .site-apps tbody .bd-num { text-align: left; color: var(--note); }
-  .site-apps tbody tr.site-apps-empty-row { display: block; }
 }

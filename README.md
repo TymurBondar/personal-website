@@ -27,7 +27,7 @@ archive/v1/           the previous Swiss-style site, self-contained, noindex
 
 In `index.html`, find the `TO ADD AN APP` comment inside the register, copy the
 row template, and fill in the number, name, subdomain, one-line description
-and year. Delete the empty-shelf row when the first app goes in.
+and year.
 
 ## Archive
 
